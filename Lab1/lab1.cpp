@@ -3,6 +3,8 @@
 *
 *  Created on: Jan 16, 2014
 *      Author: mdcsaenz
+*  Completed on May 21, 2015
+*      Author: rhernandez513
 */
 
 #include <cmath>
