@@ -1,0 +1,84 @@
+Assignment 1  Total: 8 pts Due: June 1st 11:55pm via Sakai
+
+
+Week 1
+1. (0.5 pts) Translate the following code line-by-line.  What does it do?
+
+ #include <iostream>
+
+ int main()
+ {
+    int rows, columns;
+    
+    char theChar;
+    
+    cout << "How many rows? ";
+    
+    cin >> rows;
+    
+    cout << "How many columns? ";
+    
+    cin >> columns;
+    
+    cout << "What character? ";
+    
+    cin >> theChar;
+    
+    for (int i = 0; i<rows; i++)
+        
+    {
+        
+        for (int j = 0; j < columns; j++)
+            
+            cout << theChar;
+        
+        cout << "\n";
+        
+    }
+     return 0;
+ } 
+
+2. (0.5 pts)What is the Big-O notation of the following function:
+
+bool ContainsDuplicates(String[] strings)
+{
+     for(int  n= 0; n < strings.Length; n++)
+     {
+          for(int m = 0; m < strings.Length; m++)
+          {
+               if(n == m) // Don't compare with self
+               {
+                    continue;
+               }
+
+               if(strings[n] == strings[m])
+               {
+                    return true;
+               }
+          }
+     }
+     return false;
+}
+
+3. (1pts total,0.1 each) Multiple Choice Question from the Book for Chapter 1, Questions 1-10 
+4. (3pts total) The class Cube has been defined as follows:
+ 
+class Cube {
+     private:
+          int length;
+          int width;
+          int depth;
+     public:
+          Cube(int l, int w, int d);     // set values of three class
+                                    // variables and checks that the
+                                    // values are positive integers
+          int get_length();         // return length of cube
+          int get_width();               // return width of cube
+          int get_depth();               // return depth of cube
+          int get_area();           // length x width x depth
+          int get_surface_area();   // sum of area of all six sides
+};
+ 
+Write the source code for the six public functions. Each function is worth 0.5pts. Don’t forget to include some comments!
+
+Week 2 (continuation of HW1 will be put up by Monday May 25, 2015)
