@@ -4,38 +4,38 @@ Assignment 1  Total: 8 pts Due: June 1st 11:55pm via Sakai
 Week 1
 1. (0.5 pts) Translate the following code line-by-line.  What does it do?
 
- #include <iostream>
+ #include <iostream>              // Pre-processor directive
 
  int main()
  {
-    int rows, columns;
+    int rows, columns;          // Declare integer members
     
-    char theChar;
+    char theChar;               // Declare char members
     
-    cout << "How many rows? ";
+    cout << "How many rows? ";  // Prints to screen string in quotes
     
-    cin >> rows;
+    cin >> rows;                // Allows for user input to set value of rows
     
-    cout << "How many columns? ";
+    cout << "How many columns? "; // Prints to screen string in quotes
     
-    cin >> columns;
+    cin >> columns;             // Allows for user input to set value of columns
     
-    cout << "What character? ";
+    cout << "What character? "; // Prints to screen string in quotes
     
-    cin >> theChar;
+    cin >> theChar;             // Allows for user input to set value of columns
     
-    for (int i = 0; i<rows; i++)
+    for (int i = 0; i<rows; i++) // Begin outer
         
     {
         
-        for (int j = 0; j < columns; j++)
+        for (int j = 0; j < columns; j++) // Begin inner
             
-            cout << theChar;
+            cout << theChar;      // Print theChar foreach column & row
         
-        cout << "\n";
+        cout << "\n";             // Newline after each character
         
     }
-     return 0;
+     return 0;                    // End main function
  } 
 
 2. (0.5 pts)What is the Big-O notation of the following function:
