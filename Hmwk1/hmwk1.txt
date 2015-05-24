@@ -61,6 +61,24 @@ bool ContainsDuplicates(String[] strings)
 }
 
 3. (1pts total,0.1 each) Multiple Choice Question from the Book for Chapter 1, Questions 1-10 
+  Multiple choice answers
+  1. The basic unit of information is the (b) bit.
+  2. The order of an algorithm that finds whether a given Boolean function of n 
+      variables produces an output of 1 is (d) exponential.
+  3. Software engineering primarily deals with (c) reliable and cost-effective 
+      software.
+  4. A pictoreal representation of an algorithm is called (a) a flowchart.
+  5. An English-like representation of the code is called (c) a pseudocode.
+  6. A Subalgorithm is lso known as a (d) all of the above.
+  7. A basic algorithm that arranges data according to their values is known as
+       (b) sorting.
+  8. Defining the user's needs, requirements, and methods is a part of the 
+      (a) analysis phase.
+  9. In the system development process, and the flowchart is a tool used in the 
+      (b) design phase.
+  10. In the system development process, a pseudocode is a tool used ithe 
+      (b) design phase.
+
 4. (3pts total) The class Cube has been defined as follows:
  
 class Cube {
