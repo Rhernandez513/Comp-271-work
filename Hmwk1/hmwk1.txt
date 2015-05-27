@@ -42,23 +42,23 @@ Week 1
 
 bool ContainsDuplicates(String[] strings)
 {
-     for(int  n= 0; n < strings.Length; n++)
+     for(int  n= 0; n < strings.Length; n++)   // Go through array once O(n)
      {
-          for(int m = 0; m < strings.Length; m++)
-          {
-               if(n == m) // Don't compare with self
+          for(int m = 0; m < strings.Length; m++)    // For each element in the 
+          {                                          // array, go through it again
+               if(n == m) // Don't compare with self // n*n -> O(n^2)
                {
-                    continue;
+                    continue;                        // O(1)
                }
 
                if(strings[n] == strings[m])
                {
-                    return true;
+                    return true;                     // O(1)
                }
           }
      }
-     return false;
-}
+     return false;                                   // can only be reached once
+}         // Therefore n * n * 1 * 1 ---> Big O Notation for this func is O(n^2)
 
 3. (1pts total,0.1 each) Multiple Choice Question from the Book for Chapter 1, Questions 1-10 
   Multiple choice answers
