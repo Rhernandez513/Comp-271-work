@@ -60,7 +60,7 @@ int main()
           cout << "Paper beats Rock. You win!\n";
         }
       }
-      if (comp_val == 's')
+      else if (comp_val == 's')
       {
         if (user_val == 'r')
         {
@@ -71,7 +71,7 @@ int main()
           cout << "Scissor beats Paper. You lose.\n";
         }
       }
-      if (comp_val == 'p')
+      else if (comp_val == 'p')
       {
         if (user_val == 's')
         {
@@ -81,6 +81,10 @@ int main()
         {
           cout << "Paper beats Rock. You lose.\n";
         }
+      }
+      else
+      {
+        cout << "Invalid input, try again." << endl;
       }
     }
   }
