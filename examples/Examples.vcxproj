@@ -10,12 +10,9 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="lab2.cpp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{228FCFD4-89A2-4DF9-9923-107FF1288EC5}</ProjectGuid>
-    <RootNamespace>Lab2</RootNamespace>
+    <ProjectGuid>{67E83749-F7ED-4616-B1A1-0113BD6EC424}</ProjectGuid>
+    <RootNamespace>Examples</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -66,6 +63,24 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="week1\pointer_to_pointer.cpp" />
+    <ClCompile Include="week1\postpre_increment_example.cpp" />
+    <ClCompile Include="week1\powerball_example.cpp" />
+    <ClCompile Include="week1\Rectangle_Example.cpp" />
+    <ClCompile Include="week1\returnwithptr.cpp" />
+    <ClCompile Include="week1\returnwithref.cpp" />
+    <ClCompile Include="week1\Swap_Pointers_References.cpp" />
+    <ClCompile Include="week2\arrayonheap.cpp" />
+    <ClCompile Include="week2\Arrays_Slides.cpp" />
+    <ClCompile Include="week2\CString_Slides.cpp" />
+    <ClCompile Include="week2\line_condestructor.cpp" />
+    <ClCompile Include="week2\multidimarray.cpp" />
+    <ClCompile Include="week2\newarray.cpp" />
+    <ClCompile Include="week2\objarray.cpp" />
+    <ClCompile Include="week2\Rectangle_Example_like_HW2.cpp" />
+    <ClCompile Include="week2\Struct_Slide.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

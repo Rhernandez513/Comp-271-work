@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\week1">
+      <UniqueIdentifier>{071d6b23-0ab0-49fe-acc9-2d1d59af2b68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\week2">
+      <UniqueIdentifier>{5a304b8e-e856-4a9c-a97e-737e9ed7ad0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\week3">
+      <UniqueIdentifier>{1129c97c-6977-4511-9e21-b29aef7e1555}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\week4">
+      <UniqueIdentifier>{c57d83bf-3f67-433c-9a7b-8474c59ffa36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\week5">
+      <UniqueIdentifier>{e3b9055f-6de6-4322-8f4e-8f16630ea0e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\week6">
+      <UniqueIdentifier>{3dbef10d-d596-493c-8ca6-6273a67f8178}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="week1\pointer_to_pointer.cpp">
+      <Filter>Source Files\week1</Filter>
+    </ClCompile>
+    <ClCompile Include="week1\postpre_increment_example.cpp">
+      <Filter>Source Files\week1</Filter>
+    </ClCompile>
+    <ClCompile Include="week1\powerball_example.cpp">
+      <Filter>Source Files\week1</Filter>
+    </ClCompile>
+    <ClCompile Include="week1\Rectangle_Example.cpp">
+      <Filter>Source Files\week1</Filter>
+    </ClCompile>
+    <ClCompile Include="week1\returnwithptr.cpp">
+      <Filter>Source Files\week1</Filter>
+    </ClCompile>
+    <ClCompile Include="week1\returnwithref.cpp">
+      <Filter>Source Files\week1</Filter>
+    </ClCompile>
+    <ClCompile Include="week1\Swap_Pointers_References.cpp">
+      <Filter>Source Files\week1</Filter>
+    </ClCompile>
+    <ClCompile Include="week2\arrayonheap.cpp">
+      <Filter>Source Files\week2</Filter>
+    </ClCompile>
+    <ClCompile Include="week2\Arrays_Slides.cpp">
+      <Filter>Source Files\week2</Filter>
+    </ClCompile>
+    <ClCompile Include="week2\CString_Slides.cpp">
+      <Filter>Source Files\week2</Filter>
+    </ClCompile>
+    <ClCompile Include="week2\line_condestructor.cpp">
+      <Filter>Source Files\week2</Filter>
+    </ClCompile>
+    <ClCompile Include="week2\multidimarray.cpp">
+      <Filter>Source Files\week2</Filter>
+    </ClCompile>
+    <ClCompile Include="week2\newarray.cpp">
+      <Filter>Source Files\week2</Filter>
+    </ClCompile>
+    <ClCompile Include="week2\objarray.cpp">
+      <Filter>Source Files\week2</Filter>
+    </ClCompile>
+    <ClCompile Include="week2\Rectangle_Example_like_HW2.cpp">
+      <Filter>Source Files\week2</Filter>
+    </ClCompile>
+    <ClCompile Include="week2\Struct_Slide.cpp">
+      <Filter>Source Files\week2</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
