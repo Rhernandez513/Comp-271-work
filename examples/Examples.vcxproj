@@ -47,6 +47,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -80,6 +81,26 @@
     <ClCompile Include="week2\objarray.cpp" />
     <ClCompile Include="week2\Rectangle_Example_like_HW2.cpp" />
     <ClCompile Include="week2\Struct_Slide.cpp" />
+    <ClCompile Include="week3\file_examples.cpp" />
+    <ClCompile Include="week3\fstream_slide_example.cpp" />
+    <ClCompile Include="week4\stacks_stdlib.cpp" />
+    <ClCompile Include="week4\stack_array.cpp" />
+    <ClCompile Include="week4\stack_template.cpp" />
+    <ClCompile Include="week4\templates.cpp" />
+    <ClCompile Include="week5\circular_queue\cqueue.cpp" />
+    <ClCompile Include="week5\circular_queue\main.cpp" />
+    <ClCompile Include="week5\Queue_STD.cpp" />
+    <ClCompile Include="week6\polynomial.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="week3\file1.txt" />
+    <Text Include="week3\file2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="week4\stack_array.cpp.out" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="week5\circular_queue\cqueue.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -31,6 +31,12 @@
     <Filter Include="Source Files\week6">
       <UniqueIdentifier>{3dbef10d-d596-493c-8ca6-6273a67f8178}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\week5\circular_queue">
+      <UniqueIdentifier>{37c8463c-abcb-47d6-868f-ffabe0291a4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\week5">
+      <UniqueIdentifier>{f610e1d4-cc47-4ebe-9e63-a930dba006df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="week1\pointer_to_pointer.cpp">
@@ -81,5 +87,53 @@
     <ClCompile Include="week2\Struct_Slide.cpp">
       <Filter>Source Files\week2</Filter>
     </ClCompile>
+    <ClCompile Include="week3\file_examples.cpp">
+      <Filter>Source Files\week3</Filter>
+    </ClCompile>
+    <ClCompile Include="week3\fstream_slide_example.cpp">
+      <Filter>Source Files\week3</Filter>
+    </ClCompile>
+    <ClCompile Include="week4\stack_array.cpp">
+      <Filter>Source Files\week4</Filter>
+    </ClCompile>
+    <ClCompile Include="week4\stack_template.cpp">
+      <Filter>Source Files\week4</Filter>
+    </ClCompile>
+    <ClCompile Include="week4\stacks_stdlib.cpp">
+      <Filter>Source Files\week4</Filter>
+    </ClCompile>
+    <ClCompile Include="week4\templates.cpp">
+      <Filter>Source Files\week4</Filter>
+    </ClCompile>
+    <ClCompile Include="week5\Queue_STD.cpp">
+      <Filter>Source Files\week5</Filter>
+    </ClCompile>
+    <ClCompile Include="week5\circular_queue\cqueue.cpp">
+      <Filter>Source Files\week5\circular_queue</Filter>
+    </ClCompile>
+    <ClCompile Include="week5\circular_queue\main.cpp">
+      <Filter>Source Files\week5\circular_queue</Filter>
+    </ClCompile>
+    <ClCompile Include="week6\polynomial.cpp">
+      <Filter>Source Files\week6</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="week3\file1.txt">
+      <Filter>Source Files\week3</Filter>
+    </Text>
+    <Text Include="week3\file2.txt">
+      <Filter>Source Files\week3</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="week4\stack_array.cpp.out">
+      <Filter>Source Files\week4</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="week5\circular_queue\cqueue.h">
+      <Filter>Header Files\week5</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
