@@ -9,34 +9,34 @@ Week 1
  int main()
  {
     int rows, columns;          // Declare integer members
-    
+
     char theChar;               // Declare char members
-    
+
     cout << "How many rows? ";  // Prints to screen string in quotes
-    
+
     cin >> rows;                // Allows for user input to set value of rows
-    
+
     cout << "How many columns? "; // Prints to screen string in quotes
-    
+
     cin >> columns;             // Allows for user input to set value of columns
-    
+
     cout << "What character? "; // Prints to screen string in quotes
-    
+
     cin >> theChar;             // Allows for user input to set value of columns
-    
+
     for (int i = 0; i<rows; i++) // Begin outer
-        
+
     {
-        
+
         for (int j = 0; j < columns; j++) // Begin inner
-            
+
             cout << theChar;      // Print theChar foreach column & row
-        
+
         cout << "\n";             // Newline after each character
-        
+
     }
      return 0;                    // End main function
- } 
+ }
 
 2. (0.5 pts)What is the Big-O notation of the following function:
 
@@ -44,7 +44,7 @@ bool ContainsDuplicates(String[] strings)
 {
      for(int  n= 0; n < strings.Length; n++)   // Go through array once O(n)
      {
-          for(int m = 0; m < strings.Length; m++)    // For each element in the 
+          for(int m = 0; m < strings.Length; m++)    // For each element in the
           {                                          // array, go through it again
                if(n == m) // Don't compare with self // n*n -> O(n^2)
                {
@@ -60,27 +60,27 @@ bool ContainsDuplicates(String[] strings)
      return false;                                   // can only be reached once
 }         // Therefore n * n * 1 * 1 ---> Big O Notation for this func is O(n^2)
 
-3. (1pts total,0.1 each) Multiple Choice Question from the Book for Chapter 1, Questions 1-10 
+3. (1pts total,0.1 each) Multiple Choice Question from the Book for Chapter 1, Questions 1-10
   Multiple choice answers
   1. The basic unit of information is the (b) bit.
-  2. The order of an algorithm that finds whether a given Boolean function of n 
+  2. The order of an algorithm that finds whether a given Boolean function of n
       variables produces an output of 1 is (d) exponential.
-  3. Software engineering primarily deals with (c) reliable and cost-effective 
+  3. Software engineering primarily deals with (c) reliable and cost-effective
       software.
   4. A pictoreal representation of an algorithm is called (a) a flowchart.
   5. An English-like representation of the code is called (c) a pseudocode.
   6. A Subalgorithm is lso known as a (d) all of the above.
   7. A basic algorithm that arranges data according to their values is known as
        (b) sorting.
-  8. Defining the user's needs, requirements, and methods is a part of the 
+  8. Defining the user's needs, requirements, and methods is a part of the
       (a) analysis phase.
-  9. In the system development process, and the flowchart is a tool used in the 
+  9. In the system development process, and the flowchart is a tool used in the
       (b) design phase.
-  10. In the system development process, a pseudocode is a tool used ithe 
+  10. In the system development process, a pseudocode is a tool used ithe
       (b) design phase.
 
 4. (3pts total) The class Cube has been defined as follows:
- 
+
 class Cube {
      private:
           int length;
@@ -96,7 +96,16 @@ class Cube {
           int get_area();           // length x width x depth
           int get_surface_area();   // sum of area of all six sides
 };
- 
+
 Write the source code for the six public functions. Each function is worth 0.5pts. Don’t forget to include some comments!
 
-Week 2 (continuation of HW1 will be put up by Monday May 25, 2015)
+Week 2
+** 3 pts total for this part **  // Later changed to extra credit
+
+1. (1 pts) Ask user how many cubes he/she wants to make and put them in an Array.
+   a. Ask the user how many cubes they would like to create.
+   b. Ask use to enter the length,width, and name of each cube
+   c. Display the information that the user entered plus their depth and area
+2. (1pts) Iterate through the array of cubes and modify there length and width with a random number generator that doesn't make their sizes no bigger than 40.
+3. (0.5pts) Display their updated information after the for loop
+4. (0.5pts) Delete objects correctly
