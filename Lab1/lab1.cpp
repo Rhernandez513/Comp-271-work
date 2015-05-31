@@ -28,7 +28,7 @@ int main()
 {
   char compval;
   char user_val = 'a';
-  srand(time(NULL));
+  srand((unsigned)time(NULL));
   cout << "We are going to play a game!";
   cout << "Rock, Scissors, Paper!";
 
