@@ -83,7 +83,6 @@ int main()
     //This is the output
     cout<<"A is: "<<a<<" and B is : "<<b<<endl;
 
-    //assign_reference();
-
+    assign_reference();
     return 0;
 }
