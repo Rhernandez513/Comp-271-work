@@ -12,7 +12,7 @@ void main()
   Cube cubeTest(5, 5, 5);       // Creates a correctly working Cube
   char y[] =  { 't', 'e', 's', 't' };
   Cube* cubeTest2 = new Cube(3, 2, 4, y);
-  //delete cubeTest2;
+  
   //Uncomment line to check negative values
   // Cube failCubebTest(5, -5, 5); // Should fail and throw an exception
   cout << "Cube Test Portion\n" << endl;
