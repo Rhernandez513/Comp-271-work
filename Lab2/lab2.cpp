@@ -28,11 +28,11 @@ int main()
     B[i] = new int[size];
   }
   // Initializing Elements to 0
-  for(int row = 0; row < size; row++)
+  for(int tempRow = 0; tempRow < size; tempRow++)
   {
-    for(int column = 0; column < size; column++)
+    for(int tempColumn = 0; tempColumn < size; tempColumn++)
     {
-      B[row][column] = 0;
+      B[tempRow][tempColumn] = 0;
     }
   }
 
@@ -41,21 +41,41 @@ int main()
   cout << "How many ships? ";
   cin >> num_ships;
   set_ships(B, size, num_ships);
-  cout << "paused" << endl;
-  system("pause");
+  //cout << "paused" << endl;
+  //system("pause");
   while (num_hits != num_ships)
   {
-    cout << "What row:";
+    cout << "What row? :";
     cin >> row;
-    cout << "What col: ";
+	while (row < 0)
+	{
+		cout << "Sorry that's not on the grid.\n";
+		cout << "What row? :";
+		std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		cin >> row;
+		cout << " row: " << row << endl;
+	}
+	system("pause");
+    cout << "What col?: ";
     cin >> col;
-
-    /*DETERMINE IF ITâS A HIT. IF SO, UPDATE INFORMATION & TELL USER.*/
+	while (col > size || col < 0)
+	{
+		cout << "Sorry that's not on the grid." <<endl;
+		cout << "What col? :";
+		cin >> col;
+	}
+    /*DETERMINE IF IT'S A HIT. IF SO, UPDATE INFORMATION & TELL USER.*/
     if (B[row][col] == 1)
-      {
+	{
         cout << "A Hit! At coordinates (" << row << "," << col << ")!" << endl;
         B[row][col] = 0;
-      }
+	}
+    else
+    {
+        cout << "The shot fires off with no impact..." << endl;
+    }
+
   }
 
   cout << "You sunk my battleships!" << endl;
