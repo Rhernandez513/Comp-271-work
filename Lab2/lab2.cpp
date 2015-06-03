@@ -51,7 +51,11 @@ int main()
     cin >> col;
 
     /*DETERMINE IF ITâS A HIT. IF SO, UPDATE INFORMATION & TELL USER.*/
-
+    if (B[row][col] == 1)
+      {
+        cout << "A Hit! At coordinates (" << row << "," << col << ")!" << endl;
+        B[row][col] = 0;
+      }
   }
 
   cout << "You sunk my battleships!" << endl;
