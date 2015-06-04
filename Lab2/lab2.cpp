@@ -16,9 +16,9 @@ int main()
   int size, num_ships, row, col;
   int num_hits = 0;
 
-  cout << "***** Battleship *****" << endl;
-  cout << "How many rows/columns is the board? ";
-  cin >> size;
+  std::cout << "***** Battleship *****" << std::endl;
+  std::cout << "How many rows/columns is the board? ";
+  std::cin >> size;
 
   /* CREATE THE BATTLESHIP BOARD AND SET ALL ELEMENTS TO 0*/
   // Creating the Board
@@ -37,48 +37,55 @@ int main()
   }
 
 
-  cout << "A " << size << "x" << size << " board has been created.\n";
-  cout << "How many ships? ";
-  cin >> num_ships;
+  std::cout << "A " << size << "x" << size << " board has been created.\n";
+  std::cout << "How many ships? ";
+  std::cin >> num_ships;
   set_ships(B, size, num_ships);
-  //cout << "paused" << endl;
-  //system("pause");
+
   while (num_hits != num_ships)
   {
-    cout << "What row? :";
-    cin >> row;
-	while (row < 0)
-	{
-		cout << "Sorry that's not on the grid.\n";
-		cout << "What row? :";
-		std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		cin >> row;
-		cout << " row: " << row << endl;
-	}
-	system("pause");
-    cout << "What col?: ";
-    cin >> col;
-	while (col > size || col < 0)
-	{
-		cout << "Sorry that's not on the grid." <<endl;
-		cout << "What col? :";
-		cin >> col;
-	}
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      std::cout << "\n";
+    }
     /*DETERMINE IF IT'S A HIT. IF SO, UPDATE INFORMATION & TELL USER.*/
+    std::cout << "What row? :";
+    std::cin >> row;
+    while (row < 0 || row >= size)
+    {
+      std::cout << "Sorry that's not on the grid.\n";
+      std::cout << "What row? :";
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      std::cin >> row;
+    }
+
+    std::cout << "What col?: ";
+    std::cin >> col;
+    while (col < 0 || col >= size)
+    {
+      std::cout << "Sorry that's not on the grid.\n";
+      std::cout << "What col? :";
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      std::cin >> col;
+    }
+
+    std::cout << "Launch Torpedo! Firing at (" << row << "," << col << ")!\n";
     if (B[row][col] == 1)
-	{
-        cout << "A Hit! At coordinates (" << row << "," << col << ")!" << endl;
-        B[row][col] = 0;
-	}
+    {
+      std::cout << "A Hit! At coordinates (" << row << "," << col << ")!\n";
+      B[row][col] = 0;
+      num_hits++;
+    }
     else
     {
-        cout << "The shot fires off with no impact..." << endl;
+      std::cout << "The shot fires off with no impact..." << std::endl;
     }
 
   }
 
-  cout << "You sunk my battleships!" << endl;
+  std::cout << "You sunk my battleships!" << std::endl;
 
   /*CLEAN UP YOUR MEMORY*/
 
@@ -103,7 +110,7 @@ bool set_ships(int **& matrix, int size, int num1)
     else
     {
       *location = 1;
-      cout << "set ship at " << location << endl;
+      std::cout << "set ship at " << location << std::endl;
     }
   }
   return true;
