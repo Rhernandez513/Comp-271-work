@@ -15,14 +15,14 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="hw2.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="hw2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="hw2main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ALBUM.h">
+      <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
