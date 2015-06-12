@@ -3,6 +3,7 @@
 #include "ALBUM.h"
 
 using namespace hw2;
+  // Default constructor initializes all members
   Album::Album()
   {
     artist = new char[256];
@@ -14,13 +15,16 @@ using namespace hw2;
     genre = new char[256];
   };
 
+  // Overloaded constructor uses default as delegate
   Album::Album(char *& a, char *& t)
     : artist(a)
     , title(t)
   {
   };
 
-  //deconstructor
+  // Deconstructor
+  // With only primitive members, no special deletes are
+  // Needed to free all memory contained in the instance
   Album::~Album() { } ;
 
   // Setters

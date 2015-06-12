@@ -1,0 +1,30 @@
+Assume the definitions and initializations: 
+
+char c = 'T', d = 'S';
+
+char *p1 = &c;
+
+char *p2 = &d;
+
+char *p3;
+
+Assume further that the address of c is 6940, the address of d is 9772, and the address of e is 2224. What will be printed when the following statements are executed sequentially? 
+
+// Did you mean the address of d is 2224? 
+// There is no e variable
+
+p3 = &d; // 2224
+
+cout << "*p3 = " << *p3 << endl; // *p3 = S
+
+p3 = p1; // p3 now equal to 6940
+
+cout << "*p3 = " << *p3; // *p3 = T
+
+cout << ", p3 = " << p3 << endl; // , p3 = 6940
+
+*p1 = *p2; 
+
+cout << "*p1 = " << *p1; // *p1 = S
+
+cout << ", p1 = " << p1 << endl; // , p1 = 2294
