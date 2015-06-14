@@ -30,9 +30,16 @@ class Album {
 		int get_num_songs();
 		int get_num_minutes_long();
 		bool get_genre(char *& g);
-		
+
 		//additional functions for homework 3
-		bool write_console(); //think of this as a 'toString' like in C# write out every piece of info for obj
-		//think of write_file grabbing all the info like write_console but putting it into a file if data exist
-		bool write_file(char * file_name); //return true if a value to write false otherwise	
+		bool write_console(); // think of this as a 'toString' like in C# write out
+                          // every piece of info for obj think of write_file
+                          //  grabbing all the info like write_console but
+                          //  putting it into a file if data exist
+
+		bool write_file(char * file_name); 	//think of write_file grabbing all the
+                                        // info like write_console but putting
+                                        // it into a file if data exist
+
+                                        //return true if a value to write false otherwis
 };
