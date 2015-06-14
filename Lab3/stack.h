@@ -14,7 +14,7 @@ class Stack
 {
 private:
     int *p;
-    int top,length;
+    int top, length;
     
 public:
     Stack(int = 0);
