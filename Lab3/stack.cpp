@@ -34,7 +34,7 @@ void Stack::push(int elem)
   if (p == 0) {    // Mention it at runtime
     std::cout << "Stack of zero size" << std::endl;
     std::cout << "Enter a size for stack : ";
-    std::in >> length;
+    std::cin >> length;
     p = new int[length];
   }
   if (top == (length - 1)) {  // Top reaches to the maximum stack size
@@ -48,7 +48,7 @@ void Stack::push(int elem)
 int Stack::pop()
 {
   if (p == 0 || top == -1) {
-    std::cout << "Stack empty!";
+    std::cout << "Stack empty!" << std::endl;
     return -1;
   }
   int ret = p[top];
@@ -60,10 +60,10 @@ int Stack::pop()
 void Stack::display()
 {
   //1. Create a display function
-  if (this.isEmpty()) {
+  if (this->isEmpty()) {
     std::cout << "Cannot display contents of an empty stack." << std:endl;
   } else {
-      for (int i = 0; i < top; i++) {
+      for (int i = 0; i <= top; i++) {
         std::cout << "Element #" << i + 1 << ": " << p[i] << std::endl;
   }
 }
@@ -79,21 +79,23 @@ bool Stack::isEmpty()
 
 void Stack::copy(Stack& dest)
 {
-    //2. Create a copy function
+  //2. Create a copy function
+  bool allCopied = true;
+  if(this->isEmpty()) {
+    std::cout << "Cannot copy empty stack." << std::endl;
+    return;
+  } else {
+    for(int i = 0; i <= dest.top; i++) {
+      if(dest.top == (dest.length -1)) {  // Top reaches to the maximum stack size
+        allCopied = false;
+        break;
+      }
+      dest.push(this->p[i]);
+    }
+    if(allCopied) {
+      std::cout << "Copy succesfull" << std::endl;
+    } else {
+    std::cout << "Top of destination stack reached, not all elements copied." << std::endl;
+    }
+  }
 }
-
-int main()
-{
-  Stack B; //We are creating a stack of size 'zero'
-  Stack A;
-  B.push(1);
-  B.push(2);
-  B.push(3);
-  B.push(4);
-  B.push(5);
-  std::cout << "Copy B into A and Display\n" << std::endl;
-  B.copy(A);
-  //3.Write Display A and Display B
-  return 1;
-}
-
