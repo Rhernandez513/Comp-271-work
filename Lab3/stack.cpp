@@ -5,11 +5,11 @@
 //  Created by maria saenz on 9/13/14.
 //  Copyright (c) 2014 maria saenz. All rights reserved.
 //
+//  Completed by Robert Hernadnez on 6/15/2015
 
 #include <iostream>
 #include "Stack.h"
 
-using namespace std;
 Stack::Stack(int size)
 {
   top = -1;
@@ -28,7 +28,7 @@ Stack::~Stack()
   }
 }
 
-void Stack::push(int elem)
+bool Stack::push(int elem)
 {
                    // If the stack size is zero, allow user to
   if (p == 0) {    // Mention it at runtime
@@ -39,11 +39,12 @@ void Stack::push(int elem)
   }
   if (top == (length - 1)) {  // Top reaches to the maximum stack size
     std::cout << "\nCannot push " << elem << ", Stack full" << std::endl;
-    return;
+    return false;
   } else {
       top++;
       p[top] = elem;
   }
+  return true;
 }
 int Stack::pop()
 {
@@ -61,10 +62,11 @@ void Stack::display()
 {
   //1. Create a display function
   if (this->isEmpty()) {
-    std::cout << "Cannot display contents of an empty stack." << std:endl;
+    std::cout << "Cannot display contents of an empty stack." << std::endl;
   } else {
       for (int i = 0; i <= top; i++) {
         std::cout << "Element #" << i + 1 << ": " << p[i] << std::endl;
+      }
   }
 }
 
@@ -81,16 +83,17 @@ void Stack::copy(Stack& dest)
 {
   //2. Create a copy function
   bool allCopied = true;
+  bool pushCheck;
   if(this->isEmpty()) {
     std::cout << "Cannot copy empty stack." << std::endl;
     return;
   } else {
-    for(int i = 0; i <= dest.top; i++) {
-      if(dest.top == (dest.length -1)) {  // Top reaches to the maximum stack size
+    for(int i = 0; i <= this->top; i++) {
+      pushCheck = dest.push(this->p[i]);
+      if(!pushCheck) {    // Copying reaches to the maximum stack size
         allCopied = false;
         break;
       }
-      dest.push(this->p[i]);
     }
     if(allCopied) {
       std::cout << "Copy succesfull" << std::endl;

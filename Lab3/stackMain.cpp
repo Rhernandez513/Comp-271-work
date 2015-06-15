@@ -1,7 +1,15 @@
+//
+//  Stack.cpp
+//  LabFour
+//
+//  Created by maria saenz on 9/13/14.
+//  Copyright (c) 2014 maria saenz. All rights reserved.
+//
+//  Completed by Robert Hernadnez on 6/15/2015
+
 #include <iostream>
 #include "stack.h"
 
-using namespace std;
 int main()
 {
   Stack B; //We are creating a stack of size 'zero'

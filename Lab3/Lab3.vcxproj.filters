@@ -18,6 +18,9 @@
     <ClCompile Include="stack.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="stackMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stack.h">
