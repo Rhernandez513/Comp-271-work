@@ -5,7 +5,7 @@ namespace hw2 {
   class Album
   {
   private:
-    char * artist;	// band or singersi name
+    char * artist;	// band or singers name
     char * title;	// title of the album
     int year_released;	// year the album is released
     char * record_label;	// name of company produced album
