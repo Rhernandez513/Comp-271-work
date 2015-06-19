@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -23,7 +24,8 @@ using namespace hw2;
 int main()
 {
 	// Create variables for file reading
-  char * albumFile = "C:\\Users\\rhernandez3\\Documents\\github\\Comp-271-work\\Hmwk3\\albums.txt";
+  char * albumFile = "F:\\User\\Documents\\GitHub\\Comp-271-work\\Hmwk3\\albums.txt";
+  // char * albumFile = "C:\\Users\\rhernandez3\\Documents\\github\\Comp-271-work\\Hmwk3\\albums.txt";
   char * outputFile = "oldest.txt";
   std::fstream albumStream (albumFile, std::fstream::in);
 
@@ -33,7 +35,7 @@ int main()
 	// Do a check to make sure the file is found say file found and start parsing
   // Else say file not found and let it exit
   std::cout << albumFile << std::endl;
-  char* message = albumStream.is_open() ? " Open." : " Failed.";
+  const char * message = albumStream.is_open() ? " Open." : " Failed.";
   std::cout << message << std::endl;
   if (!albumStream.is_open()) {
     std::cout << "\n Goodbye" << std::endl;
@@ -87,22 +89,30 @@ int main()
   // Split unformatted char arrays into tokens and place into prepared container
   char * delimiterPtr;
   const char delimiters[] = { '\t' };
-  for (int albumMetaData = 0; albumMetaData < lineCount; albumMetaData++) {
-    delimiterPtr = std::strtok(*IndividualAlbum[albumMetaData], delimiters);
+  for (int currentLine = 0; currentLine <= lineCount; currentLine++) {
+    delimiterPtr = std::strtok(unformattedText[currentLine], delimiters);
       for (int currentProperty = 0; currentProperty <= totalProperties; currentProperty++) {
-        if(delimiterPtr != nullptr) {
+        if(delimiterPtr == nullptr) {
           break; 
         } else {
-        IndividualAlbum[albumMetaData][currentProperty] = delimiterPtr;
-        delimiterPtr = std::strtok(NULL, delimiters);
+        IndividualAlbum[currentLine][currentProperty] = delimiterPtr;
+        delimiterPtr = std::strtok(nullptr, delimiters);
         }
       }
+      // Uncomment Below to verify data is being correctly placed
+      //for (int currentProperty = 0; currentProperty <= totalProperties; currentProperty++) {
+      //  char* testProp = IndividualAlbum[currentLine][currentProperty];
+      //  if (*testProp == -51) {  // Check for empty propeties
+      //    break;
+      //  } else {
+      //    // Confirm properties by printing individual properties to console
+      //    std::cout << IndividualAlbum[currentLine][currentProperty] << std::endl;
+      //  }
+      //}
     }
-// while (delimiterPtr) {
-//    /* Insert some logic here */
-//    delimiterPtr = std::strtok(NULL, delimiters);
-//  }
-
+  /*======================================================================== */
+                          /* Works until here */
+  /*======================================================================== */
   // Create Int holders
   int numIntProperties = 3;
   int ** numbers = new int * [numIntProperties];
