@@ -35,7 +35,7 @@ int main()
 	// Do a check to make sure the file is found say file found and start parsing
   // Else say file not found and let it exit
   std::cout << albumFile << std::endl;
-  //const char * message = albumStream.is_open() ? " Open." : " Failed.";
+  const char * message = albumStream.is_open() ? " Open." : " Failed.";
   std::cout << message << std::endl;
   if (!albumStream.is_open()) {
     std::cout << "\n Goodbye" << std::endl;
