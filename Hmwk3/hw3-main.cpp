@@ -24,8 +24,8 @@ using namespace hw2;
 int main()
 {
 	// Create variables for file reading
-  char * albumFile = "F:\\User\\Documents\\GitHub\\Comp-271-work\\Hmwk3\\albums.txt";
-  // char * albumFile = "C:\\Users\\rhernandez3\\Documents\\github\\Comp-271-work\\Hmwk3\\albums.txt";
+  //char * albumFile = "F:\\User\\Documents\\GitHub\\Comp-271-work\\Hmwk3\\albums.txt";
+  char * albumFile = "C:\\Users\\rhernandez3\\Documents\\github\\Comp-271-work\\Hmwk3\\albums.txt";
   char * outputFile = "oldest.txt";
   std::fstream albumStream (albumFile, std::fstream::in);
 
@@ -39,6 +39,7 @@ int main()
   std::cout << message << std::endl;
   if (!albumStream.is_open()) {
     std::cout << "\n Goodbye" << std::endl;
+    std::system("pause");
     return 0;
   }
   
@@ -91,25 +92,25 @@ int main()
   const char delimiters[] = { '\t' };
   for (int currentLine = 0; currentLine <= lineCount; currentLine++) {
     delimiterPtr = std::strtok(unformattedText[currentLine], delimiters);
-      for (int currentProperty = 0; currentProperty <= totalProperties; currentProperty++) {
-        if(delimiterPtr == nullptr) {
-          break; 
-        } else {
-        IndividualAlbum[currentLine][currentProperty] = delimiterPtr;
-        delimiterPtr = std::strtok(nullptr, delimiters);
-        }
+    for (int currentProperty = 0; currentProperty <= totalProperties; currentProperty++) {
+      if(delimiterPtr == nullptr) {
+        break; 
+      } else {
+      IndividualAlbum[currentLine][currentProperty] = delimiterPtr;
+      delimiterPtr = std::strtok(nullptr, delimiters);
       }
-      // Uncomment Below to verify data is being correctly placed
-      //for (int currentProperty = 0; currentProperty <= totalProperties; currentProperty++) {
-      //  char* testProp = IndividualAlbum[currentLine][currentProperty];
-      //  if (*testProp == -51) {  // Check for empty propeties
-      //    break;
-      //  } else {
-      //    // Confirm properties by printing individual properties to console
-      //    std::cout << IndividualAlbum[currentLine][currentProperty] << std::endl;
-      //  }
-      //}
     }
+  }
+    // Uncomment Below to verify data is being correctly placed
+    //for (int currentProperty = 0; currentProperty <= totalProperties; currentProperty++) {
+    //  char* testProp = IndividualAlbum[currentLine][currentProperty];
+    //  if (*testProp == -51) {  // Check for empty propeties
+    //    break;
+    //  } else {
+    //    // Confirm properties by printing individual properties to console
+    //    std::cout << IndividualAlbum[currentLine][currentProperty] << std::endl;
+    //  }
+    //}
   /*======================================================================== */
                           /* Works until here */
   /*======================================================================== */
