@@ -24,8 +24,8 @@ using namespace hw2;
 int main()
 {
 	// Create variables for file reading
-  //char * albumFile = "F:\\User\\Documents\\GitHub\\Comp-271-work\\Hmwk3\\albums.txt";
-  char * albumFile = "C:\\Users\\rhernandez3\\Documents\\github\\Comp-271-work\\Hmwk3\\albums.txt";
+  char * albumFile = "F:\\User\\Documents\\GitHub\\Comp-271-work\\Hmwk3\\albums.txt";
+  //char * albumFile = "C:\\Users\\rhernandez3\\Documents\\github\\Comp-271-work\\Hmwk3\\albums.txt";
   char * outputFile = "oldest.txt";
   std::fstream albumStream (albumFile, std::fstream::in);
 
@@ -73,7 +73,7 @@ int main()
     }
   }
   
-  // Now with individual albums as unformatted text, separate albums
+/*=========Now with individual albums as unformatted text, organize===========*/
   
   // Create Individual album data containers
   int totalProperties = 7;
@@ -90,7 +90,7 @@ int main()
   // Split unformatted char arrays into tokens and place into prepared container
   char * delimiterPtr;
   const char delimiters[] = { '\t' };
-  for (int currentLine = 0; currentLine <= lineCount; currentLine++) {
+  for (int currentLine = 0; currentLine < lineCount; currentLine++) {
     delimiterPtr = std::strtok(unformattedText[currentLine], delimiters);
     for (int currentProperty = 0; currentProperty <= totalProperties; currentProperty++) {
       if(delimiterPtr == nullptr) {
@@ -122,18 +122,20 @@ int main()
   }
   
   // Convert char array to int 
-  bool isNumber = true;
+  bool isNumber;
   for (int i = 0, k = 0; i <= totalProperties; i++) {
+    isNumber = true;                // Set/Reset Number checker
+
     // Check each property of an Album
     int test = (int)**IndividualAlbum[i];
-    if (test < 48 || test > 57) { // Check to see if char is a number
+    if (test < 48 || test > 57) {   // Check to see if char is a number
       isNumber = false;
       continue;
     }
-    if (isNumber) { // Start transferring on first number found
+    if (isNumber) {                 // Start transferring on first number found
       for (int j = 0; j < 32; j++) {
         int temp = ((int)IndividualAlbum[i][j]) - 48;
-        if (temp == 9) { // Check for Tab chars
+        if (temp == 9) {            // Check for Tab chars
           break;
         }
        *numbers[k] = temp;
@@ -143,7 +145,7 @@ int main()
   }
   std::system("pause");
   // Create a test album
-  Album* first = new Album(**&IndividualAlbum[0], **&IndividualAlbum[1]);
+  Album* first = new Album(**&IndividualAlbum[1], *&IndividualAlbum[1][1]);
 
 
 
