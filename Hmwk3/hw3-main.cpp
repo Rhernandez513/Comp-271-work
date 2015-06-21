@@ -114,6 +114,7 @@ int main()
   /*======================================================================== */
                           /* Works until here */
   /*======================================================================== */
+
   // Create Int holders
   int numIntProperties = 3;
   int ** numbers = new int * [numIntProperties];
