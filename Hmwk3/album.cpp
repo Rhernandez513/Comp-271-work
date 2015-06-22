@@ -140,32 +140,32 @@ bool Album::get_genre(char *& g)
 bool Album::write_console()
 {
   int count = 0;
-  if (this.title) {
-    std::cout << "Title: " << this.title << std::endl;
+  if (this->title) {
+    std::cout << "Title: " << this->title << std::endl;
     count++;  // 1
   }
-  if (this.artist) {
-    std::cout << "Artist: " << this.artist << std::endl;
+  if (this->artist) {
+    std::cout << "Artist: " << this->artist << std::endl;
     count++;  // 2
   }
-  if (this.year_released > 0 ) {
-    std::cout << "Year Realeased: " << this.year_released << std::endl;
+  if (this->year_released > 0 ) {
+    std::cout << "Year Realeased: " << this->year_released << std::endl;
     count++; // 3
   }
-  if (this.record_label) {
-    std::cout << "Record Label: " << this.record_label << std::endl;
+  if (this->record_label) {
+    std::cout << "Record Label: " << this->record_label << std::endl;
     count++; // 4
   }
-  if (this.num_songs > 0) {
-    std::cout << "Number of Songs: " << this.record_label << std::endl;
+  if (this->num_songs > 0) {
+    std::cout << "Number of Songs: " << this->record_label << std::endl;
     count++; // 5
   }
-  if (this.num_minutes_long > 0) {
-    std::cout << "Number of Minutes Long: " << this.num_minutes_long << std::endl;
+  if (this->num_minutes_long > 0) {
+    std::cout << "Number of Minutes Long: " << this->num_minutes_long << std::endl;
     count++; // 6
   }
-  if (this.genre) {
-    std::cout << "Genre: " << this.genre << std::endl;
+  if (this->genre) {
+    std::cout << "Genre: " << this->genre << std::endl;
     count++; // 7
   }
   if (count == 7) {
@@ -177,7 +177,7 @@ bool Album::write_console()
 
 bool Album::write_file(char * file_name)   	// Grabs all the info like
 {                                           // write_console but putting
-                                            // It into a file if data exists
+  return false;                             // It into a file if data exists
 }                                           // Return true if 
                                             // A value to write false otherwise
                           
