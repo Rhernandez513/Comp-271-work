@@ -15,10 +15,11 @@ int totalProperties = 7;
 *   index of the albums that is the oldest
 *This function finx the album in albums that is the oldest from your collection
 *******************************************************************************/
-//int find_oldest_album(Album **& albums, int num_of_albums){
-//	int newest_index=-1;
-//	return newest_index;
-//}
+int find_oldest_album(hw2::Album **& albums, const int num_of_albums){
+	int newest_index=-1;
+	return newest_index;
+}
+
 bool checkStream(std::fstream &stream)
 {
   const char * message = stream.is_open() ? " Open." : " Failed.";
@@ -83,6 +84,7 @@ char *** ParseAlbumFile(std::fstream &albumStream, const int lineCount)
   delimiterPtr = nullptr;
 
   //// Uncomment Below to verify data is being correctly placed
+
   //for (int currentProperty = 0; currentProperty <= totalProperties; currentProperty++) {
   //  char* testProp = IndividualAlbum[currentLine][currentProperty];
   //  if (*testProp == -51) {  // Check for empty propeties
@@ -137,18 +139,16 @@ int main()
   // Actually creates all the albums as objects
   const int collectionSize = lineCount;
   hw2::Album **albumCollection = new hw2::Album *[collectionSize];
-  for (int i = 1; i < lineCount - 1; i++) {   // Skip the first line
-    for (int j = 0; j < 2; j++) {
-      albumCollection[i] = new hw2::Album();
-      albumCollection[i]->set_artist(AlbumData[i][totalProperties - 7]);
-      albumCollection[i]->set_title(AlbumData[i][totalProperties - 6]);
-      albumCollection[i]->set_year_released(atoi(AlbumData[i][totalProperties - 5]));
-      albumCollection[i]->set_num_songs(atoi(AlbumData[i][totalProperties - 4]));
-      albumCollection[i]->set_record_label(AlbumData[i][totalProperties - 3]);
-      albumCollection[i]->set_num_minutes_long(atoi(AlbumData[i][totalProperties - 2]));
-      albumCollection[i]->set_genre(AlbumData[i][totalProperties - 1]);
-    }
-    std::cout << "test created album: #" << i << "\n" << std::endl;
+  for (int i = 1; i < lineCount; i++) {   // Skip the first line
+    std::cout << "\ntest created album: #" << i << "\n";
+    albumCollection[i] = new hw2::Album();
+    albumCollection[i]->set_artist(AlbumData[i][totalProperties - 7]);
+    albumCollection[i]->set_title(AlbumData[i][totalProperties - 6]);
+    albumCollection[i]->set_year_released(atoi(AlbumData[i][totalProperties - 5]));
+    albumCollection[i]->set_num_songs(atoi(AlbumData[i][totalProperties - 4]));
+    albumCollection[i]->set_record_label(AlbumData[i][totalProperties - 3]);
+    albumCollection[i]->set_num_minutes_long(atoi(AlbumData[i][totalProperties - 2]));
+    albumCollection[i]->set_genre(AlbumData[i][totalProperties - 1]);
     albumCollection[i]->write_console();
   }
 
@@ -185,37 +185,18 @@ int main()
   //  k++;
   //  }
   //}
-
+  int oldestAlbum = find_oldest_album(albumCollection, lineCount - 1);
 	// Clean up your memory
   for (int i = 1; i < lineCount; i++) {
     // Properties of each album
     delete[] *AlbumData[i];
   }
   delete[] AlbumData;
-	return 0;
+
+  for (int i = 1; i < lineCount - 1; i++) {
+    delete albumCollection[i];
+  }
+  delete[] albumCollection;
+	return 1;
 }
-//Album** CollectionCreator ()
-//{
-//  Album ** albumCollection = new Album * [collectionSize];
-//  char ** artist = new char * [collectionSize];
-//  for (int i = 0; i < collectionSize; i++) {
-//    artist[i] = new char [256];
-//  }
-//
-//  // Album titles
-//  char * inTitles[256] = { "Solace", "Aspect", "Contact" } ;
-//
-//  // Create Matching array of artist (same artist for all 3 albums)
-//  char * inArtists = { "Monstercat" } ;
-//  for (int i = 0; i < collectionSize; i++) {
-//    artist[i] = &inArtists[0];
-//  }
-//  for (int i = 0; i < collectionSize; i++) {
-//    albumCollection[i] = new Album(*&artist[i], *&inTitles[i]);
-//  }
-//
-//  // De-refernce pointers to allow for deletion later
-//
-//  artist = nullptr;
-//  RETURN albumCollection;
-//}
+
