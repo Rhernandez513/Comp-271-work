@@ -4,22 +4,33 @@
 #include <cstring>
 #include "album.h"
 
+
+using namespace hw2;
 int totalProperties = 7;
 
 /*******************************************************************************
 * find oldest album
 * parameters:
 *  albums: array of albums
-*  num_of_albums: numer of albums in array
+*  num_of_albums: number of albums in array
 * return:
 *   index of the albums that is the oldest
-*This function finx the album in albums that is the oldest from your collection
+*This function finds the album in albums that is the oldest from your collection
 *******************************************************************************/
 int find_oldest_album(hw2::Album **& albums, const int num_of_albums){
-	int newest_index=-1;
+	int newest_index = 0;
+  int runningMin = albums[0]->get_year_released();
+  for (int i = 0; i < num_of_albums; i++) {
+    int temp = albums[i]->get_year_released();
+    if (temp < runningMin && temp != 0) {
+      runningMin = temp;
+      newest_index = i;
+    }
+  }
 	return newest_index;
 }
 
+// Verifies that the FStream is open
 bool checkStream(std::fstream &stream)
 {
   const char * message = stream.is_open() ? " Open." : " Failed.";
@@ -33,6 +44,7 @@ bool checkStream(std::fstream &stream)
   }
 }
 
+// Creates container and parses stream for all data
 char *** ParseAlbumFile(std::fstream &albumStream, const int lineCount)
 {
   char tempChar;
@@ -51,7 +63,7 @@ char *** ParseAlbumFile(std::fstream &albumStream, const int lineCount)
     }
   }
 
-  /*=========Now with individual albums as unformatted text, organize===========*/
+  /*=========Now with individual albums as unformatted text, organize=========*/
 
   // Create Individual album data containers
   char *** IndividualAlbums = new char **[lineCount];
@@ -81,13 +93,14 @@ char *** ParseAlbumFile(std::fstream &albumStream, const int lineCount)
   // Memory Cleanup  
   // Can't delete/null unformattedText[]
   // Still referenced by IndividualAlbums[][]
+  // Which is returned by this func
   delimiterPtr = nullptr;
 
-  //// Uncomment Below to verify data is being correctly placed
+  /*========Uncomment Below to verify data is being correctly placed==========*/
 
   //for (int currentProperty = 0; currentProperty <= totalProperties; currentProperty++) {
   //  char* testProp = IndividualAlbum[currentLine][currentProperty];
-  //  if (*testProp == -51) {  // Check for empty propeties
+  //  if (*testProp == -51) {  // Check for empty properties
   //    break;
   //  } else {
   //    // Confirm properties by printing individual properties to console
@@ -105,21 +118,16 @@ int main()
 
   /*=========== SUBSTITUTE THIS FOR YOUR FILE PATH TO "albums.txt" ===========*/
   char * albumFile = "F:\\User\\Documents\\GitHub\\Comp-271-work\\Hmwk3\\albums.txt";
+
+  // Do a check to make sure the file is found say file found and start parsing
+  // Else say file not found and let it exit
   std::fstream albumStream(albumFile, std::fstream::in);
   if (!checkStream(albumStream)) {
     return 0;
   }
 
-	// Generate a file called oldest.txt here to write the oldest album in there
-  char * outputFile = "oldest.txt";
-  std::fstream outputStream (outputFile, std::fstream::out);
-
-	// Do a check to make sure the file is found say file found and start parsing
-  // Else say file not found and let it exit
-  std::cout << albumFile << std::endl;
-  
 	// Write out all the album information that you read in here
-  // Figure out how many lines (also albums) are in the file
+  // Figures out how many lines (also albums) are in the file
   char character;
   int lineCount = 0;
   while(albumStream.get(character)) {
@@ -133,59 +141,35 @@ int main()
   albumStream.clear();
   albumStream.seekg(0);
 
-  char *** AlbumData;
-  AlbumData = ParseAlbumFile(albumStream, lineCount);
+  char *** AlbumData = ParseAlbumFile(albumStream, lineCount);
+  albumStream.close();
 
   // Actually creates all the albums as objects
   const int collectionSize = lineCount;
   hw2::Album **albumCollection = new hw2::Album *[collectionSize];
-  for (int i = 1; i < lineCount; i++) {   // Skip the first line
+  for (int i = 1, j = 0; i < lineCount; i++, j++) {   // Skip the first line
     std::cout << "\ntest created album: #" << i << "\n";
-    albumCollection[i] = new hw2::Album();
-    albumCollection[i]->set_artist(AlbumData[i][totalProperties - 7]);
-    albumCollection[i]->set_title(AlbumData[i][totalProperties - 6]);
-    albumCollection[i]->set_year_released(atoi(AlbumData[i][totalProperties - 5]));
-    albumCollection[i]->set_num_songs(atoi(AlbumData[i][totalProperties - 4]));
-    albumCollection[i]->set_record_label(AlbumData[i][totalProperties - 3]);
-    albumCollection[i]->set_num_minutes_long(atoi(AlbumData[i][totalProperties - 2]));
-    albumCollection[i]->set_genre(AlbumData[i][totalProperties - 1]);
-    albumCollection[i]->write_console();
+    albumCollection[j] = new hw2::Album();
+    albumCollection[j]->set_artist(AlbumData[i][0]);
+    albumCollection[j]->set_title(AlbumData[i][1]);
+    albumCollection[j]->set_year_released((atoi(AlbumData[i][2])));
+    albumCollection[j]->set_record_label(AlbumData[i][3]);
+    albumCollection[j]->set_num_songs((atoi(AlbumData[i][4])));
+    albumCollection[j]->set_num_minutes_long((atoi(AlbumData[i][5])));
+    albumCollection[j]->set_genre(AlbumData[i][6]);
+    albumCollection[j]->write_console();
+    std::cout << std::endl;
   }
 
-  /*======================================================================== */
-                          /* Works until here */
-  /*======================================================================== */
 
-  //// Create Int holders
-  //int numIntProperties = 3;
-  //int ** numbers = new int * [numIntProperties];
-  //for (int i = 0; i <= numIntProperties; i++) { 
-  //  numbers[i] = new int[32];
-  //}
-  
-  //// Convert char array to int 
-  //bool isNumber;
-  //for (int i = 0, k = 0; i <= totalProperties; i++) {
-  //  isNumber = true;                // Set/Reset Number checker
+  // Generate a file called oldest.txt here to write the oldest album in there
+    int oldestAlbum = find_oldest_album(albumCollection, lineCount - 1);
+  std::cout << "\n\nOldest Album released in: ";
+  std::cout << albumCollection[oldestAlbum]->get_year_released() << std::endl;
+  char * outputFile = "oldest.txt";
+  albumCollection[oldestAlbum]->write_file(outputFile);
 
-  //  // Check each property of an Album
-  //  int test = (int)**IndividualAlbum[i];
-  //  if (test < 48 || test > 57) {   // Check to see if char is a number
-  //    isNumber = false;
-  //    continue;
-  //  }
-  //  if (isNumber) {                 // Start transferring on first number found
-  //    for (int j = 0; j < 10; j++) {
-  //      int temp = ((int)IndividualAlbum[i][j]);
-  //      if (temp == 9) {            // Check for Tab chars
-  //        break;
-  //      }
-  //     *numbers[k] = temp;
-  //    }
-  //  k++;
-  //  }
-  //}
-  int oldestAlbum = find_oldest_album(albumCollection, lineCount - 1);
+
 	// Clean up your memory
   for (int i = 1; i < lineCount; i++) {
     // Properties of each album
@@ -199,4 +183,3 @@ int main()
   delete[] albumCollection;
 	return 1;
 }
-

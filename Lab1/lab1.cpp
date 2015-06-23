@@ -26,7 +26,7 @@ char get_comp_val()
 
 int main()
 {
-  char compval;
+  char comp_val;
   char user_val = 'a';
   srand((unsigned)time(NULL));
   cout << "We are going to play a game!";
@@ -38,7 +38,7 @@ int main()
     cout << "For Rock, type an r. For Scissors, s. For Paper, p. or to quit, q";
     cout << "\n" << "1.. 2.. 3.." << endl;
     cin >> user_val;
-    char comp_val = get_comp_val();
+    comp_val = get_comp_val();
     if (comp_val == user_val)
     {
       cout << "TIE!" << endl;

@@ -23,9 +23,6 @@
     <ClCompile Include="album.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hw2main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="hw3-main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

@@ -24,7 +24,7 @@ namespace hw2 {
     bool set_artist(char * a);
     bool set_title(char * t);
     bool set_year_released(int value);
-    bool set_record_label(char *& label);
+    bool set_record_label(char * label);
     bool set_num_songs(int value);
     bool set_num_minutes_long(int value);
     bool set_genre(char * g);
