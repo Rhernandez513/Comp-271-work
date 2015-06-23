@@ -72,7 +72,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="albums.txt" />
-    <Text Include="oldest.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="hw3-main.cpp.vsspell">

@@ -31,9 +31,6 @@
     <Text Include="albums.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="oldest.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="hw3-main.cpp.vsspell" />

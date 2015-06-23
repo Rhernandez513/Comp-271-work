@@ -1,0 +1,7 @@
+Album Title: Blue train
+Album Artist: John Coltrane
+Year Album Released: 1957
+Record Label: Blue Note Records
+Number of Songs: 5
+Number of Minutes Long: 41
+Genre: Jazz
