@@ -31,13 +31,10 @@ Llist::Llist()
 
 void Llist::Append(Node * NewNode)
 {
-    if(Head==NULL)
-    {
+    if (Head == NULL) {
         Head=NewNode;
         Tail=NewNode;
-    }
-    else
-    {
+    } else {
         Tail->link=NewNode;
         Tail=NewNode;
     }
@@ -46,22 +43,18 @@ void Llist::Append(Node * NewNode)
 void Llist::Insert_at_Pos(Node * NewNode, int position)
 {
     Node *temp=Head;
-    if(position==1)     //we will insert at the first position
+    if (position == 1)     //we will insert at the first position
     {
-        NewNode->link=temp;
-        Head=NewNode;           //update the head
-    }
-    else
-    {
+        NewNode->link = temp;
+        Head = NewNode;           //update the head
+    } else {
         int count=1, flag=1;
-        while(count!=position-1)
-        {
+        while(count !=position-1) {
             temp=temp->link;
             if(temp==NULL) {flag=0; break;}
             count++;
         }
-        if(flag==1)
-        {
+        if (flag==1) {
             NewNode->link=temp->link;
             temp->link=NewNode;
         }
