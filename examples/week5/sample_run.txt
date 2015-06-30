@@ -1,0 +1,52 @@
+===Menu=== 
+1. Infix to Prefix Conversion
+2. Infix to Postfix Conversion
+3. Read in file of infix equations
+0 to quit
+Choice: 1
+Enter your infix expression:3-4-5
+Outcome of Conversion:  --345
+
+
+===Menu=== 
+1. Infix to Prefix Conversion
+2. Infix to Postfix Conversion
+3. Read in file of infix equations
+0 to quit
+Choice: 1
+Enter your infix expression:3^4^5
+Outcome of Conversion:  ^3^
+
+
+===Menu=== 
+1. Infix to Prefix Conversion
+2. Infix to Postfix Conversion
+3. Read in file of infix equations
+0 to quit
+Choice: 3
+Enter file location: /Users/mdcsaenz/Desktop/infix.txt
+Output file located at: /Users/mdcsaenz/Desktop/solutions.txt
+
+===Menu=== 
+1. Infix to Prefix Conversion
+2. Prefix to Infix Conversion
+3. Postfix to Prefix Conversion
+4. Prefix to Postfix Conversion
+0 to quit
+Choice: 0
+
+===Menu=== 
+1. Infix to Prefix Conversion
+2. Prefix to Infix Conversion
+3. Postfix to Prefix Conversion
+4. Prefix to Postfix Conversion
+0 to quit
+Choice: 7
+Not a valid choice try again
+
+
+
+----------------------------------------------------
+solutions.txt should have data looking like this example below:
+
+infix: 3-4-5,prefix: --345,postfix: 34-5-
