@@ -29,8 +29,17 @@ bool readFile(const std::string filename)
       std::getline(inputStream, line);
       count++;
     }
+    std::string* lines = new std::string[count];
+    // Reset back to beginning of file
+    inputStream.clear();
+    inputStream.seekg(0);
+    for (int i = 0; i <= count; i++;) {
+      std::getline(inputStream, lines[i]);
+      std::cout << lines[i] << std::endl;
+    }
   }
   inputStream.close();
+  return openCheck;
 }
 
 bool writeSolutionFile(std::vector<conversion> & solutions);
