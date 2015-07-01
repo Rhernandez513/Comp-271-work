@@ -13,9 +13,12 @@ struct conversion{
 };
 
 //implements there four and should be shown in the menu
-std::string infixToPrefix(std::string expression);
-std::string infixToPostfix(std::string expression);
-bool fileOption(std::string filename);
+std::string infixToPrefix(const std::string expression);
+std::string infixToPostfix(const std::string expression);
+bool fileOption(const std::string filename)
+{
+  int choice;
+}
 
 bool readFile(const std::string filename)
 {
@@ -122,12 +125,23 @@ void menuOptionWithFile(int &choice)
     std::cout << "3. Postfix to Prefix Conversion" << std::endl;
     std::cout << "4. Prefix to Postfix Conversion" << std::endl;
     std::cout << "0 to quit" << std::endl;
-    std::cout << "Choice: " << std::endl;
+    std::cout << "Choice: ";
     std::cin >> choice;
     if (choice > 4 || choice < 0) {
       std::cout << "Invalid Input Try Again." << std::endl;
     }
   } while (choice > 4 || choice < 0);
+}
+
+void menuOption(int &choice)
+{  
+  std::cout << "\n\n===Menu=== \n" << std::endl;
+  std::cout << "1. Infix to Prefix Conversion\n" << std::endl;
+  std::cout << "2. Infix to Postfix Conversion\n" << std::endl;
+  std::cout << "3. Read in a file of Infix Equations\n" << std::endl;
+  std::cout << "0 to quit\n" << std::endl;
+  std::cout << "Choice: ";
+  std::cin  >>  choice;
 }
 
 int main()
@@ -139,18 +153,12 @@ int main()
    *A vector that holds conversion data type called solutions
   **********/
   std::string* userInput = new std::string;
+  int choice;
+  menuOption(choice);
+  if (choice == 3) {
+  
+  }
+  
   return 0;
 }
-
-void menuOption(int &choice){
-    
-    std::cout << "\n\n===Menu=== \n";
-    std::cout << "1. Infix to Prefix Conversion\n";
-    std::cout << "2. Infix to Postfix Conversion\n";
-    std::cout << "3. Read in a file of Infix Equations\n";
-    std::cout << "0 to quit\n";
-    std::cout << "Choice: ";
-    std::cin  >>  choice;
-}
-
 
