@@ -29,9 +29,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab5", "Lab5\Lab5.vcxproj",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lab7", "Lab7\Lab7.vcxproj", "{50D83926-70EA-443D-AB0F-3E18DD611F51}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hmwk4", "Hmwk4\Hmwk4.vcxproj", "{467B0FC1-9F02-4FC3-9EC7-5DF6017F2924}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hmwk4", "hws\Hmwk4\Hmwk4.vcxproj", "{467B0FC1-9F02-4FC3-9EC7-5DF6017F2924}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hmwk5", "Hmwk5\Hmwk5.vcxproj", "{F8A60121-8885-4EF3-91E6-F26C7A1F3DF7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hmwk5", "hws\Hmwk5\Hmwk5.vcxproj", "{F8A60121-8885-4EF3-91E6-F26C7A1F3DF7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -19,6 +19,7 @@ int inStackPriority(const char ch);
 int incomingPriority(const char ch);
 bool hasHigherPrecedenceInToPre(const char op1, const char op2);
 bool writeSolutionFile(std::vector<conversion> & solutions);
+bool isOperator(const char C);
 
 std::string infixToPrefix(std::string expression)
 {
@@ -68,7 +69,7 @@ std::string infixToPostfix(std::string expression)
 {
   std::string result;
   std::stack<char> holdingStack;
-  for (auto i= std::begin(expression); i != std::end(expression); i++) {
+  for (auto i = std::begin(expression); i != std::end(expression); ++i) {
     if (*i == ')') {
        *i = holdingStack.top();
         holdingStack.pop();
@@ -79,14 +80,23 @@ std::string infixToPostfix(std::string expression)
       }
     }
     if (isOperand(*i)) {
+      result += *i;
       std::cout << *i;
-    } else {
-      if (hasHigherPrecedenceInToPre(*i, holdingStack.top())) {
+    }
+    if (isOperator(*i)) {
+      if (holdingStack.empty()) {
+        holdingStack.push(*i);
+        continue;
+      }
+      if (!hasHigherPrecedenceInToPre(*i, holdingStack.top())) {
         holdingStack.push(*i);
       } else {
-        while (!hasHigherPrecedenceInToPre(*i, holdingStack.top())) {
-        std::cout << holdingStack.top();
-        holdingStack.pop();
+        while (hasHigherPrecedenceInToPre(*i, holdingStack.top())) {
+          std::cout << holdingStack.top();
+          holdingStack.pop();
+          if (holdingStack.empty()) {
+            break;
+          }
         }
       }
     }
@@ -127,9 +137,8 @@ conversion* readFile(const std::string filename)
     // Cleanup
     inputStream.close();
     return fileData;
-  } else {
-    return nullptr;
   }
+  return nullptr;
 }
 
 bool fileOption(const std::string filename)
@@ -204,13 +213,27 @@ bool isOperand(const char C)
   }
 }
 
+bool isOperator(const char C)
+{
+  switch (C) {
+    case('^') :
+    case('*') :
+    case('/') :
+    case('+') :
+    case('-') :
+      return true;
+    default:
+      return false;
+  }
+}
+
 //This should return true if isp>icp else false, also should check for right 
 // associativity by comapring isp==icp and char is '^'
 bool hasHigherPrecedenceInToPre(char op1, char op2)
 {
   /* ===== INCOMPLETE ===== */
- bool result_b = incomingPriority(op1) > inStackPriority(op2) ? true : false;
- return result_b;
+  bool result_b = incomingPriority(op1) <= inStackPriority(op2) ? true : false;
+  return result_b;
 }
 
 //This should prompt user to enter 1-3 for a choice or 0 to quit
