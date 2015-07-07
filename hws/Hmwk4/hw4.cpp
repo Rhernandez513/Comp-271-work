@@ -20,36 +20,46 @@ int incomingPriority(const char ch);
 bool hasHigherPrecedenceInToPre(const char op1, const char op2);
 bool writeSolutionFile(std::vector<conversion> & solutions);
 bool isOperator(const char C);
-
+int count = 0;
 std::string infixToPrefix(std::string expression)
 {
   std::stack<char> operatorStack, displayStack;
-  std::vector<char> reversedInput;
+  std::vector<char> reversedInput(256);
   std::reverse_copy(expression.begin(), expression.end(), reversedInput.begin());
+  reversedInput.shrink_to_fit();
   std::string result;
   for (auto i= reversedInput.begin(); i != reversedInput.end(); i++) {
     if (isOperand(*i)) {
       displayStack.push(*i);
     }
-    if (*i == ')') {
+    if (*i == ')' && !operatorStack.empty()) {
         *i = operatorStack.top();
         operatorStack.pop();
       while (*i != '(') {
         displayStack.push(*i);
+        if (!operatorStack.empty()) {
+          break;
+        }
         *i = operatorStack.top();
         operatorStack.pop();
       } 
     }
     if (!isOperand(*i)) {
-      if (incomingPriority(*i) >= inStackPriority(operatorStack.top())) {
+      if (operatorStack.empty()) {
+        operatorStack.push(*i);
+      } else if (hasHigherPrecedenceInToPre(*i, operatorStack.top())) {
         operatorStack.push(*i);
       } else {
-        *i = operatorStack.top();
-        operatorStack.pop();
-        while (!hasHigherPrecedenceInToPre(*i, operatorStack.top())) {
-          displayStack.push(operatorStack.top());
-          operatorStack.pop();
+        if (!operatorStack.empty()) {
+          while (!hasHigherPrecedenceInToPre(*i, operatorStack.top())) {
+            displayStack.push(operatorStack.top());
+            operatorStack.pop();
+            if (operatorStack.empty()) {
+              break;
+            }
+          }
         }
+        operatorStack.push(*i);
       }
     }
   }
@@ -58,9 +68,12 @@ std::string infixToPrefix(std::string expression)
     operatorStack.pop();
   }
   while (!displayStack.empty()) {
-    result += displayStack.top();
+    if (displayStack.top() != '\0') {
+      result += displayStack.top();
+    }
     displayStack.pop();
   }
+  std::cout << result << std::endl;
   return result;
 }
 
@@ -74,9 +87,12 @@ std::string infixToPostfix(std::string expression)
        *i = holdingStack.top();
         holdingStack.pop();
       while (*i != '(') {
-       *i = holdingStack.top();
-        std::cout << *i;
-        holdingStack.pop();
+        if (!holdingStack.empty()) {
+          break;
+        } else {
+          *i = holdingStack.top();
+          holdingStack.pop();
+        }
       }
     }
     if (isOperand(*i)) {
@@ -88,15 +104,19 @@ std::string infixToPostfix(std::string expression)
         holdingStack.push(*i);
         continue;
       }
-      if (!hasHigherPrecedenceInToPre(*i, holdingStack.top())) {
+      if (hasHigherPrecedenceInToPre(*i, holdingStack.top())) {
         holdingStack.push(*i);
       } else {
-        while (hasHigherPrecedenceInToPre(*i, holdingStack.top())) {
-          std::cout << holdingStack.top();
-          holdingStack.pop();
-          if (holdingStack.empty()) {
-            break;
+        if (!holdingStack.empty()) {
+          while (!hasHigherPrecedenceInToPre(*i, holdingStack.top())) {
+            std::cout << holdingStack.top();
+            result += holdingStack.top();
+            holdingStack.pop();
+            if (holdingStack.empty()) {
+              break;
+            }
           }
+          holdingStack.push(*i);
         }
       }
     }
@@ -106,13 +126,13 @@ std::string infixToPostfix(std::string expression)
     result += holdingStack.top();
     holdingStack.pop();
   }
+  std::cout << std::endl;
   return result;
 }
 
 
 conversion* readFile(const std::string filename)
 {
-  int count = 0;
   std::fstream inputStream(filename.c_str(), std::fstream::in);
   bool openCheck = inputStream.is_open() ? true : false;
   if (openCheck) {
@@ -130,7 +150,6 @@ conversion* readFile(const std::string filename)
     conversion* fileData = new conversion[count];
     for (int i = 0; i < count; i++) {
       // Places info from the file into memory and writes to screen
-      system("pause");
       std::getline(inputStream, fileData[i].infix);
       std::cout << fileData[i].infix << std::endl;
     }
@@ -146,9 +165,9 @@ bool fileOption(const std::string filename)
   try
   {
     conversion * fileData = readFile(filename);
-    for (int i= 0; &fileData[i] != nullptr; i++) {
+    for (int i= 0; i < count; i++) {
       fileData[i].postfix = infixToPostfix(fileData[i].infix);
-      fileData[i].prefix = infixToPrefix(fileData[i].infix);
+      //fileData[i].prefix = infixToPrefix(fileData[i].infix);
     }
     return true;
   }
@@ -221,6 +240,7 @@ bool isOperator(const char C)
     case('/') :
     case('+') :
     case('-') :
+    case(')'):
       return true;
     default:
       return false;
@@ -232,8 +252,11 @@ bool isOperator(const char C)
 bool hasHigherPrecedenceInToPre(char op1, char op2)
 {
   /* ===== INCOMPLETE ===== */
-  bool result_b = incomingPriority(op1) <= inStackPriority(op2) ? true : false;
-  return result_b;
+  if (incomingPriority(op1) >= inStackPriority(op2)) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 //This should prompt user to enter 1-3 for a choice or 0 to quit
@@ -276,7 +299,6 @@ int main()
       std::cout << "File reading failed, try again." << std::endl;
     }
   }
-  system("pause");
+  std::system("pause");
   return 0;
 }
-
