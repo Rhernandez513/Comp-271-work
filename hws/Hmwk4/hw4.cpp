@@ -37,7 +37,7 @@ std::string infixToPrefix(std::string expression)
         operatorStack.pop();
       while (*i != '(') {
         displayStack.push(*i);
-        if (!operatorStack.empty()) {
+        if (operatorStack.empty()) {
           break;
         }
         *i = operatorStack.top();
@@ -167,7 +167,7 @@ bool fileOption(const std::string filename)
     conversion * fileData = readFile(filename);
     for (int i= 0; i < count; i++) {
       fileData[i].postfix = infixToPostfix(fileData[i].infix);
-      //fileData[i].prefix = infixToPrefix(fileData[i].infix);
+      fileData[i].prefix = infixToPrefix(fileData[i].infix);
     }
     return true;
   }
