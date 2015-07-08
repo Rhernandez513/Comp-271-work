@@ -1,0 +1,30 @@
+Problem #1 infix: 3-4-5
+Problem #1 postfix: 34-5-
+Problem #1 prefix: --345
+
+
+Problem #2 infix: 3^4^5
+Problem #2 postfix: 345^^
+Problem #2 prefix: ^^345
+
+
+Problem #3 infix: (5*(4/2))
+Problem #3 postfix: 54*2/
+Problem #3 prefix: /*542
+
+
+Problem #4 infix: (A+(B-C))
+Problem #4 postfix: AB+C-
+Problem #4 prefix: -+ABC
+
+
+Problem #5 infix: ((A+(B*C))-D)
+Problem #5 postfix: ABC+D-
+Problem #5 prefix: +A*BC-D
+
+
+Problem #6 infix: 3*6-5/7
+Problem #6 postfix: 36*57/-
+Problem #6 prefix: -*36/57
+
+
