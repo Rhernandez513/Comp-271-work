@@ -155,7 +155,6 @@ int main()
   std::cin >> currWord;
   std::string data = currWord;
   std::transform(data.begin(), data.end(), data.begin(), tolower);
-  currWord = data;
   if(!currWord.empty()) {
     if(is_in(currWord, words_occ)) {
       std::cout << "Word " << currWord << " found! It occurred ";

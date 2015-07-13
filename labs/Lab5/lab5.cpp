@@ -13,24 +13,35 @@ class TreeNode
 
 class BinaryTree
 {
-  public:
-    TreeNode *Root;
+  private:
+    TreeNode * Root;
   public:
     BinaryTree() { Root = nullptr; }       //constructor
     void Preorder();
     void Inorder();
     void Postorder();
-    void PreorderR(TreeNode*);
-    void InorderR(TreeNode*);
-    void PostorderR(TreeNode*);
+    void PreorderR(TreeNode* node);
+    void InorderR(TreeNode* node);
+    void PostorderR(TreeNode* node);
     TreeNode* Find_Node_Inorder(char D);
     void InsertNode(char Val);
+    TreeNode * GetRoot();
+    void SetRoot(TreeNode * node);
 };
-
+// Accessor
+TreeNode * BinaryTree::GetRoot()
+{
+  return this->Root;
+}
+// Mutator
+void BinaryTree::SetRoot(TreeNode * node)
+{
+  this->Root = node;
+}
 // 1. finish up the preorder, look at slides
 void BinaryTree::Preorder()
 {
-  TreeNode * Tmp = Root;
+  TreeNode * Tmp = this->GetRoot();
   stack<TreeNode*> S;
   while (true) {
     while (Tmp != nullptr) {
@@ -49,7 +60,7 @@ void BinaryTree::Preorder()
 
 void BinaryTree::Inorder()
 {
-  TreeNode * Tmp = Root;
+  TreeNode * Tmp = this->GetRoot();
   stack<TreeNode*> S;
   while (true) {
     //traverse left until its nullptr & push
@@ -71,7 +82,7 @@ void BinaryTree::Inorder()
 
 void BinaryTree::Postorder()
 {
-  TreeNode * Tmp = Root;
+  TreeNode * Tmp = this->GetRoot();
   stack<TreeNode*> S;
   //stores nodes
   stack<char> F;
@@ -110,39 +121,39 @@ void BinaryTree::Postorder()
 }
 
 //#2 Recursive version of PREORDER
-void BinaryTree::PreorderR(TreeNode*)
+void BinaryTree::PreorderR(TreeNode * node)
 {
-  if (Root != nullptr) {
-    std::cout << Root->Data; /* D         D      */
-    PreorderR(Root->Lchild); /* L        / \     */
-    PreorderR(Root->Rchild); /* R       L   R    */
+  if (node != nullptr) {
+    std::cout << node->Data; /* D         D      */
+    PreorderR(node->Lchild); /* L        / \     */
+    PreorderR(node->Rchild); /* R       L   R    */
   }
 }
 
 //#3 Recursive version of INORDER
-void BinaryTree::InorderR(TreeNode*)
+void BinaryTree::InorderR(TreeNode * node)
 {
-  if (Root != nullptr) {
-    InorderR(Root->Lchild);  /* L         D      */
-    std::cout << Root->Data; /* D        / \     */
-    InorderR(Root->Rchild);  /* R       L   R    */
+  if (node != nullptr) {
+    InorderR(node->Lchild);  /* L         D      */
+    std::cout << node->Data; /* D        / \     */
+    InorderR(node->Rchild);  /* R       L   R    */
   }
 }
 
 //#4 Recursive version of POSTORDER
-void BinaryTree::PostorderR(TreeNode*)
+void BinaryTree::PostorderR(TreeNode * node)
 {
-  if (Root != nullptr) {
-    PreorderR(Root->Lchild); /* L         D      */
-    PreorderR(Root->Rchild); /* R        / \     */
-    std::cout << Root->Data; /* D       L   R    */
+  if (node != nullptr) {
+    PreorderR(node->Lchild); /* L         D      */
+    PreorderR(node->Rchild); /* R        / \     */
+    std::cout << node->Data; /* D       L   R    */
   }
 }
 
 //#5 in the INORDER fashion look for node where Temp->Data==D and return node
 TreeNode* BinaryTree::Find_Node_Inorder(char D)
 {
-  TreeNode * Tmp = Root;
+  TreeNode * Tmp = this->GetRoot();
   stack<TreeNode*> S;
   while (true) {
     // Go Left until NULL & push
@@ -177,9 +188,9 @@ void BinaryTree::InsertNode(char Val)
   newNode->Lchild = newNode->Rchild = nullptr;
   if (!Root) {
     // Is the tree empty?
-    Root = newNode;
+    this->SetRoot(newNode);
   } else {
-    nodePtr = Root;
+    nodePtr = this->GetRoot();
     while (nodePtr != nullptr) {
       if (Val < nodePtr->Data) {
         if (nodePtr->Lchild) {
@@ -214,14 +225,13 @@ int main()
   b->InsertNode(m);
   b->InsertNode(a);
   b->InsertNode(q);
-  TreeNode * nodePtr = new TreeNode;
   //#8 call recurisve and non recursive functions of order types
   //call both postorderR and postorder
   std::cout << "Postorder: ";
   b->Postorder();
   std::cout << std::endl;
   std::cout << "PostorderR: ";
-  //b->PostorderR(nodePtr);
+  b->PostorderR(b->GetRoot());
   std::cout << std::endl;
 
   //call both inorderR and inorder
@@ -229,7 +239,7 @@ int main()
   b->Inorder();
   std::cout << std::endl;
   std::cout << "InorderR: ";
-  //b->InorderR(nodePtr);
+  b->InorderR(b->GetRoot());
   std::cout << std::endl;
 
   //call both preorderR and preorder
@@ -237,7 +247,7 @@ int main()
   b->Preorder();
   std::cout << std::endl;
   std::cout << "PreorderR: ";
-  //b->PreorderR(nodePtr);
+  b->PreorderR(b->GetRoot());
   std::cout << std::endl;
   std::system("pause");
   return 1;
