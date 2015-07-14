@@ -26,9 +26,14 @@ bool read_file(char * file_name, std::vector<std::string> & w)
   std::string tempLineString;
   while (fileReader.peek() != EOF) {
     std::getline(fileReader, tempLineString);
+    if (tempLineString == "") {
+      std::cout << std::endl;
+    } else {
     std::cout << "Parsing: " << tempLineString << std::endl;
     parse_line(tempLineString.c_str(), w);
+    }
   }
+  std::cout << std::endl;
   fileReader.close();
   return true;
 }
@@ -94,12 +99,12 @@ bool parse_line(const char * line, std::vector<std::string> &w)
       if (currentChar == '\0' || isspace(currentChar)) {
         // Checks for end of cstring & whitespace
         break;
-      } else if (ispunct(currentChar)) {
-        // Discards punctuation
+      } else if (ispunct(currentChar) || isdigit(currentChar)) {
+        // Discards punctuation & numbers
         currentChar = line[++_char];
         _char--;
         continue;
-      } else {
+      } else if (isalpha(currentChar)){
         // Check for letters and put them in the string
         tempString += currentChar;
       } // End if
@@ -113,33 +118,31 @@ bool parse_line(const char * line, std::vector<std::string> &w)
       currentChar = 'a';
     }
     // Put it into the vector of strings
-    w.push_back(tempString);
+    if(!tempString.empty()) {
+      w.push_back(tempString);
+    }
     tempString.clear();  // Reset String for next iteration
   } // End outer Loop
   return true;
 }
 
-void bufferClear()
-{
-  std::cin.clear();
-  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-}
 int main()
 {
   // Some vars
   int index;
-  std::string filename;
+  std::string filename, userInput, userPrompt, filePrompt, userOptions, 
+              write_filename, tryAgainMsg;
+  filePrompt = "Please enter a filename ";
   std::vector<std::string> words;
   std::vector<word_freq> words_occ;
   word_freq new_word;
   new_word.num_times_occ = 0;
-
+  
 /*===========================================================================*/
 
   // Prep for file Reading
-  std::cout << "Please enter a filename to read: ";
+  std::cout << filePrompt << "to read: ";
   std::getline(std::cin,filename);
-  bufferClear();
   char * c_filename = new char[strlen(filename.c_str()) + 1];
   strcpy(c_filename, filename.c_str());
 
@@ -156,77 +159,95 @@ int main()
         new_word.word = *it;
         new_word.num_times_occ = 1;
         words_occ.push_back(new_word);
-      }
+      } // End inner if
     } // End loop
-  } // End if
-  delete [] c_filename;
+  } // End outer if
+  delete [] c_filename;  // Cleanup
 
 /*===========================================================================*/
 
   // Logic for viewing or writing the text file
-  std::string userInput;
-  std::cout << "Would you like to see the Occurrences or write to a text file?";
-  std::cout << " (s to see, or w to write): ";
-  std::getline(std::cin, userInput);
-  bufferClear();
-  if (userInput == "s" || userInput == "S") {
-    // Show each word and how many times it occurs example: for loop of 'words_occ'
-    // Write the file of all the occurrences
-    for (auto it = words_occ.begin(); it != words_occ.end(); it++) {
-      std::cout << "Occurrences of " << it->word << ": ";
-      std::cout << get_num_occ(it->word, words_occ) << std::endl;
-    } // End loop
-  } else if (userInput == "w" || userInput == "W") {
-    // Prompt for string to name the file
-    // Write all occurences to the text file
-    std::string write_filename;
-    std::cout << "Please enter a filename to write: ";
-    std::getline(std::cin, write_filename);
-    bufferClear();
-    char * c_write_filename = new char[strlen(write_filename.c_str()) + 1];
-    strcpy(c_write_filename, write_filename.c_str());
-    if (write_file(c_write_filename, words_occ)) {
-      std::cout << "File " << c_write_filename << " successfully written.";
-      std::cout << std::endl;
+  userPrompt = 
+    "\nWould you like to see the Occurrences or Write to a text file?";
+  userOptions = 
+    "\n(s to view, or w to write, or 1 to search, 0 again to quit): ";
+  tryAgainMsg = "\nPlease try again";
+  while(userInput != "0") {
+    std::cout << userPrompt << userOptions << std::endl;
+    std::getline(std::cin, userInput);
+    if (userInput == "s" || userInput == "S") {
+      // Show each word and how many times it occurs
+      // Example: for loop of 'words_occ'
+
+      // Print to screen, all the occurrences
+      for (auto it = words_occ.begin(); it != words_occ.end(); it++) {
+        std::cout << "Occurrences of " << it->word << ": ";
+        std::cout << get_num_occ(it->word, words_occ) << std::endl;
+      } // End loop
+    } else if (userInput == "w" || userInput == "W") {
+      // Prompt for string to name the file
+      // Write all occurrences to the text file
+      std::cout << "\n" << filePrompt <<  " to write: ";
+      std::getline(std::cin, write_filename);
+      char * c_write_filename = new char[strlen(write_filename.c_str()) + 1];
+      strcpy(c_write_filename, write_filename.c_str());
+      if (write_file(c_write_filename, words_occ)) {
+        std::cout << "\nFile " << c_write_filename << " successfully written.";
+        userPrompt =
+          "\n Would you like to search the new file? (1 to search, 0 to quit) ";
+        std::cout << userPrompt;
+        std::getline(std::cin, userInput);
+        break;  // If file is successfully written, move to search/quit
+      } else {
+        std::cout << "\nWriting " << c_write_filename << " failed.";
+        std::cout <<  tryAgainMsg << std::endl;
+        continue;  // Prompt for user input again
+      } // End inner if
+      delete [] c_write_filename;  // Cleanup
+    } else if (userInput == "0" || userInput == "1") {
+      // Break on 0 and 1, 1 takes you to search, 0 ends program
+      // See next if block
+      break;
     } else {
-      std::cout << "Writing " << c_write_filename << " failed." << std::endl;
-    } // End inner if
-    delete [] c_write_filename;
-  } else {
-    std::cout << "Bad Input! File Operations Aborted!" << std::endl;
-  } // End outer if
+      std::cout << "Bad Input! File Operations Aborted!" << std::endl;
+      std::cout << tryAgainMsg << std::endl;
+    } // End outer if
+  } // End while loop
 
 /*===========================================================================*/
 
   // While loop to ask user "What word do you want to look up or 0 to quit"
   // Else word not in std::vector or 0 to quit
 
-  // Logic for counting occurences
-  std::string currWord = ""; // Start with an empty string
-  while(currWord != "0") {
-    std::cout << "Enter a word to search for (Enter 0 to quit): ";
-    std::getline(std::cin, currWord);
-    bufferClear();
-    if (currWord == "0") {
-      break;
-    }
-    // Convert to lowercase
-    std::string data = currWord;
-    std::transform(data.begin(), data.end(), data.begin(), tolower);
-    currWord = data;
-    if(!currWord.empty()) {
-      // If word is there say word and how many times it occurred
-      if(is_in(currWord, words_occ)) {
-        std::cout << "Word " << currWord << " found! It occurred ";
-        std::cout << "(" << get_num_occ(currWord, words_occ) << ") times!";
-        std::cout << std::endl;
-      } else {
-        std::cout << "Word \"" << currWord << "\" not found!" << std::endl;
-      } // End inner if
-    } // End if
-  } // End While
+  // Logic for counting occurrences
+  if (userInput == "1") {
+    std::string currWord = ""; // Start with an empty string
+    userPrompt = "\nEnter a word to search for, (Enter 0 to quit): ";
+    while(currWord != "0") {
+      std::cout << userPrompt;
+      std::getline(std::cin, currWord);
+      if (currWord == "0") {
+        break;  //Leave loop on user input
+      } // End if
+      // Convert to lowercase
+      std::string data = currWord;
+      std::transform(data.begin(), data.end(), data.begin(), tolower);
+      currWord = data;
+      if(!currWord.empty()) {
+        // If word is there say word and how many times it occurred
+        if(is_in(currWord, words_occ) >= 0) {  //is_in returns an index
+          std::cout << "\nWord " << currWord << " found! It occurred ";
+          std::cout << "(" << get_num_occ(currWord, words_occ) << ") times!";
+          std::cout << std::endl;
+        } else {
+          std::cout << "\nWord \"" << currWord << "\" not found!" << std::endl;
+        } // End inner if
+      } // End if
+    } // End While
+  }
 
-  std::cout << "Goobye!" << std::endl;
+  std::cout << "\nGoodbye!" << std::endl;
+  std::cin.get();
   return 1;
 } //End main
 
