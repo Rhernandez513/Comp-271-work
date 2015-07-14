@@ -128,7 +128,6 @@ int main()
 {
   // Some vars
   int index;
-  char * c_filename;
   std::string filename;
   std::vector<std::string> words;
   std::vector<word_freq> words_occ;
@@ -141,7 +140,7 @@ int main()
   std::cout << "Please enter a filename to read: ";
   std::getline(std::cin,filename);
   bufferClear();
-  c_filename = new char[strlen(filename.c_str()) + 1];
+  char * c_filename = new char[strlen(filename.c_str()) + 1];
   strcpy(c_filename, filename.c_str());
 
   // Read the file then process the data
@@ -160,7 +159,7 @@ int main()
       }
     } // End loop
   } // End if
-  delete c_filename;
+  delete [] c_filename;
 
 /*===========================================================================*/
 
@@ -184,15 +183,15 @@ int main()
     std::cout << "Please enter a filename to write: ";
     std::getline(std::cin, write_filename);
     bufferClear();
-    c_write_filename = new char[strlen(write_filename.c_str()) + 1];
+    char * c_write_filename = new char[strlen(write_filename.c_str()) + 1];
     strcpy(c_write_filename, write_filename.c_str());
-    if (write_file(c_write_filename, words_occ) {
+    if (write_file(c_write_filename, words_occ)) {
       std::cout << "File " << c_write_filename << " successfully written.";
       std::cout << std::endl;
     } else {
       std::cout << "Writing " << c_write_filename << " failed." << std::endl;
     } // End inner if
-    delete c_write_filename;
+    delete [] c_write_filename;
   } else {
     std::cout << "Bad Input! File Operations Aborted!" << std::endl;
   } // End outer if
