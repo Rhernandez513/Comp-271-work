@@ -5373,4 +5373,3 @@ cgtatccaac
 gtatccaacc
 tatccaacct
 atccaacctg
-tccaacctgc
