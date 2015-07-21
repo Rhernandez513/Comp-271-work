@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{F8A60121-8885-4EF3-91E6-F26C7A1F3DF7}</ProjectGuid>
-    <RootNamespace>Hmwk5</RootNamespace>
+    <ProjectGuid>{E3EA43A8-A3FC-4C85-A63B-DBE631997B8B}</ProjectGuid>
+    <RootNamespace>Hmwk6</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -47,7 +47,6 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -65,10 +64,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="hw5.cpp" />
+    <ClCompile Include="Source\BinaryTree.cpp" />
+    <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\QuarternaryTree.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="roadnottaken.txt" />
+    <ClInclude Include="Headers\BinaryTree.h" />
+    <ClInclude Include="Headers\BTreeNode.h" />
+    <ClInclude Include="Headers\QTreeNode.h" />
+    <ClInclude Include="Headers\QuarternaryTree.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Resources\BReads_Maps_Result.txt" />
+    <Text Include="Resources\BReads_map_results.txt" />
+    <Text Include="Resources\genome_file.txt" />
+    <Text Include="Resources\QReads_map_results.txt" />
+    <Text Include="Resources\test_file.txt" />
+    <Text Include="Resources\test_fileQT.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

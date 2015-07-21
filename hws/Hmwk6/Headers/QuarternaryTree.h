@@ -1,5 +1,7 @@
-#ifndef QUARTERNARYTREE.H
-#define QUARTERNARYTREE .H
+#ifndef QUARTERNARYTREE_H
+#define QUARTERNARYTREE_H
+#include "QTreeNode.h"
+#include <vector>
 
 class QuarternaryTree // created a class for the quarternary tree
 {
@@ -12,8 +14,8 @@ public:
   QTreeNode *Root;
   QuarternaryTree();
   ~QuarternaryTree();
-  bool insert_vector(vector<string> &w); // used address to find pointer
-  bool compare_vector_to_tree(vector<string> &v);
+  bool insert_vector(std::vector<std::string> &w); // used address to find pointer
+  bool compare_vector_to_tree(std::vector<std::string> &v);
 };
-#endif // QUARTERNARYTREE.H
+#endif // QUARTERNARYTREE_H
 

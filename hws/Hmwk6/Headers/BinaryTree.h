@@ -1,12 +1,13 @@
+#ifndef BINARYTREE_H
+#define BINARYTREE_H
 #include "BTreeNode.h"
-#ifndef BINARYTREE.H
-#define BINARYTREE.H
+#include <vector>
 
 class BinaryTree {
 public:
   BTreeNode *Root;
   BinaryTree();
-  bool insert_vector(std::vector<string> &w);
-  bool compare_vector_to_tree(std::vector<string> &v);
+  bool insert_vector(std::vector<std::string> &w);
+  bool compare_vector_to_tree(std::vector<std::string> &v);
 };
 #endif // BINARYTREE.H

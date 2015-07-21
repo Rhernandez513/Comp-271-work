@@ -1,4 +1,7 @@
-#include "QuarternaryTree.H"
+#include "../Headers/QTreeNode.h"
+#include <vector>
+#include <iostream>
+#include <fstream>
 
 class QuarternaryTree // created a class for the quarternary tree
     {
@@ -10,8 +13,8 @@ private:
 public:
   QTreeNode *Root;
   QuarternaryTree() { Root = NULL; }
-  bool insert_vector(vector<string> &w); // used address to find pointer
-  bool compare_vector_to_tree(vector<string> &v);
+  bool insert_vector(std::vector<std::string> &w); // used address to find pointer
+  bool compare_vector_to_tree(std::vector<std::string> &v);
 
   // deleting the trees recursively.
   ~QuarternaryTree() {
@@ -42,13 +45,13 @@ void QuarternaryTree::deleteNode(QTreeNode *node) // deletes nodes
   node = NULL;
 }
 
-bool QuarternaryTree::insert_vector(vector<string> &w) {
-  for (int i = 0; i < w.size();
+bool QuarternaryTree::insert_vector(std::vector<std::string> &w) {
+  for (auto i = 0; i < w.size();
        i++) {           // increment through each string in vector
-    string temp = w[i]; // string to work with
+    std::string temp = w[i]; // string to work with
     // this will be the pointer that navigates through the tree
     QTreeNode *currentNode = Root;
-    for (int n = 0; n < temp.size(); n++) {
+    for (auto n = 0; n < temp.size(); n++) {
       if (Root == NULL) {
         // create new BTreeNode, give it's data a value of z
         // because this will differentiate it
@@ -119,16 +122,15 @@ bool QuarternaryTree::insert_vector(vector<string> &w) {
   return true;
 }
 
-bool QuarternaryTree::compare_vector_to_tree(vector<string> &v) {
-  ofstream out;
+bool QuarternaryTree::compare_vector_to_tree(std::vector<std::string> &v) {
   char *file1 = "QReads_map_results.txt";
-  out.open(file1);
+  std::ofstream out(file1, std::ofstream::out);
   int stringcount = 0; // will keep track of how many strings we've gone through
                        // to print to file
   int truthcount =
       0; // will keep track of how many strings match from reads.txt to my tree
   for (int i = 0; i < v.size(); i++) {
-    string temp = v[i]; // using string for comparison
+    std::string temp = v[i]; // using string for comparison
     bool flag =
         true; // will help keep track of what's in the tree and what's not
     QTreeNode *currentNode = this->Root; // using the Root from this binary tree

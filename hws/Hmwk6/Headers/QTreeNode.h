@@ -1,6 +1,5 @@
-#include "QTreeNode.h"
-#ifndef QTREENODE.H
-#define QTREENODE .H
+#ifndef QTREENODE_H
+#define QTREENODE_H
 
 class QTreeNode {
 public:
@@ -10,4 +9,4 @@ public:
   QTreeNode *child3;
   QTreeNode *child4;
 };
-#endif // QTREENODE.H
+#endif // QTREENODE_H

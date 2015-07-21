@@ -1,5 +1,5 @@
-#ifndef BTREENODE.H
-#define BTREENODE .H
+#ifndef BTREENODE_H
+#define BTREENODE_H
 
 class BTreeNode {
 public:

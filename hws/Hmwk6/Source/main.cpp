@@ -1,19 +1,18 @@
 #include <iostream>
-#include <stack>
 #include <fstream>
 #include <vector>
-#include <cstring>
+#include "../Headers/BinaryTree.h"
+#include "../Headers/QuarternaryTree.h"
 
-// using namespace std;
 
-bool get_words(char *file_name, std::vector<string> &w, char type);
-bool get_reads(char *file_name, std::vector<string> &r, char type);
-bool write_vector_to_screen(std::vector<string> v);
-bool write_vector_to_file(std::vector<string> v, char *file_name);
+bool get_words(char *file_name, std::vector<std::string> &w, char type);
+bool get_reads(char *file_name, std::vector<std::string> &r, char type);
+bool write_vector_to_screen(std::vector<std::string> v);
+bool write_vector_to_file(std::vector<std::string> v, char *file_name);
 
 int main() {
-  std::vector<string> words;
-  std::vector<string> words1;
+  std::vector<std::string> words;
+  std::vector<std::string> words1;
   char *genome_file_name = "genome_file.txt"; // make certain to place this file
                                               // in the correct folder. Do not
                                               // change path.
@@ -31,8 +30,8 @@ int main() {
   QGenomeTree.insert_vector(words1);
   // 2. Read in file BReads or QReads using function
   // get_reads(read_file_name,reads);
-  std::vector<string> reads1;
-  std::vector<string> reads2;
+  std::vector<std::string> reads1;
+  std::vector<std::string> reads2;
 
   // Make certain to place this file in the correct folder
   // Do not change path.
@@ -77,7 +76,7 @@ int main() {
   std::cout << "----------------------QUATERNARY TREE ENDED. "
                "QUIT---------------------" << std::endl;
   std::cout << "--------------------------------------------------------------"
-            << endl;
+            << std::endl;
   BGenomeTree.~BinaryTree();
   QGenomeTree.~QuarternaryTree();
 }
@@ -91,7 +90,7 @@ Type='B' means you are doing a binary tree. Type='Q' means you are doing
 the quartenary tree. This function will translate the file such that the
 same file can be used for either tree.
 *******************************************************************************/
-bool get_words(char *file_name, vector<string> &w, char type) {
+bool get_words(char *file_name, std::vector<std::string> &w, char type) {
   int len = 0;
   std::ifstream in;
   in.open(file_name);
@@ -160,12 +159,12 @@ Type='B' means you are doing a binary tree. Type='Q' means you are doing
 the quartenary tree. This function will translate the file such that the
 same file can be used for either tree.
 *******************************************************************************/
-bool get_reads(char *file_name, vector<string> &r, char type) {
+bool get_reads(char *file_name, std::vector<std::string> &r, char type) {
   int i;
-  ifstream in;
+  std::ifstream in;
   in.open(file_name);
   if (!in.is_open()) {
-    cout << "The read file could not be opened. Check the location.\t";
+    std::cout << "The read file could not be opened. Check the location.\t";
     return false;
   }
 
@@ -196,20 +195,20 @@ bool get_reads(char *file_name, vector<string> &r, char type) {
   return true;
 }
 
-bool write_vector_to_screen(vector<string> v) {
-  int i;
-  for (i = 0; i < v.size(); i++)
-    cout << v[i] << endl;
+bool write_vector_to_screen(std::vector<std::string> v);
+
+bool write_vector_to_file(std::vector<std::string> v, char *file_name) {
+  std::ofstream out (file_name, std::ofstream::out);
+  for (auto i = 0; i < v.size(); i++)
+    out << v[i].c_str() << std::endl;
+  out.clear();
+  out.close();
   return true;
 }
 
-bool write_vector_to_file(vector<string> v, char *file_name) {
-  ofstream out;
-  out.open(file_name);
-  int i;
-  for (i = 0; i < v.size(); i++)
-    out << v[i] << endl;
-  out.clear();
-  out.close();
+bool write_vector_to_screen(std::vector<std::string> v)
+{
+  for (auto i = 0; i < v.size(); i++)
+    std::cout << v[i].c_str() << std::endl;
   return true;
 }
