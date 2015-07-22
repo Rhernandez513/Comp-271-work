@@ -3,26 +3,19 @@
 #include <iostream>
 #include <fstream>
 
-QuarternaryTree::QuarternaryTree() {
-  Root = nullptr;
+QuarternaryTree::QuarternaryTree()
+  : Root(nullptr)
+{
 };
 
-// deleting the trees recursively.
+// deleting the nodes recursively.
 QuarternaryTree::~QuarternaryTree()
 {
-  QuarternaryTree::recursive_delete(this->Root);
+  if(Root) delete Root;
 };
 
-void QuarternaryTree::recursive_delete(
-    QTreeNode *node) // checking if the nodes are null,
-{                    // then going on to recursive delete.
-  if (node != nullptr) {
-    recursive_delete(node->child1);
-    recursive_delete(node->child2);
-    recursive_delete(node->child3);
-    recursive_delete(node->child4);
-  }
-  delete node;
+QTreeNode * QuarternaryTree::CreateNode(const char val) {
+  return new QTreeNode(val);
 }
 
 bool QuarternaryTree::insert_vector(std::vector<std::string> &w) {
@@ -35,23 +28,13 @@ bool QuarternaryTree::insert_vector(std::vector<std::string> &w) {
       if (Root == nullptr) {
         // create new BTreeNode, give it's data a value of z
         // because this will differentiate it
-        Root = new QTreeNode();
-        Root->Data = 'z';
-        Root->child1 = nullptr;
-        Root->child2 = nullptr;
-        Root->child3 = nullptr;
-        Root->child4 = nullptr;
+        Root = QuarternaryTree::CreateNode('z');
         currentNode = Root;
       }
       if (temp[n] == 'a') {
         // if the value is not yet in the tree then create new node
         if (currentNode->child1 == nullptr) {
-          currentNode->child1 = new QTreeNode();
-          currentNode->child1->Data = 'a';
-          currentNode->child1->child1 = nullptr;
-          currentNode->child1->child2 = nullptr;
-          currentNode->child1->child3 = nullptr;
-          currentNode->child1->child4 = nullptr;
+          currentNode->child1 = QuarternaryTree::CreateNode('a');
         }
         // make sure to move down the tree
         currentNode = currentNode->child1;
@@ -59,36 +42,21 @@ bool QuarternaryTree::insert_vector(std::vector<std::string> &w) {
       if (temp[n] == 't') {
         // if the value is not yet in the tree then create new node
         if (currentNode->child2 == nullptr) {
-          currentNode->child2 = new QTreeNode();
-          currentNode->child2->Data = 't';
-          currentNode->child2->child1 = nullptr;
-          currentNode->child2->child2 = nullptr;
-          currentNode->child2->child3 = nullptr;
-          currentNode->child2->child4 = nullptr;
+          currentNode->child2 = QuarternaryTree::CreateNode('t');
         }
         currentNode = currentNode->child2; // make sure to move down the tree
       }
       if (temp[n] == 'c') {
         // if the value is not yet in the tree then create new node
         if (currentNode->child3 == nullptr) {
-          currentNode->child3 = new QTreeNode();
-          currentNode->child3->Data = 'c';
-          currentNode->child3->child1 = nullptr;
-          currentNode->child3->child2 = nullptr;
-          currentNode->child3->child3 = nullptr;
-          currentNode->child3->child4 = nullptr;
+          currentNode->child3 = QuarternaryTree::CreateNode('c');
         }
         currentNode = currentNode->child3; // make sure to move down the tree
       }
       if (temp[n] == 'g') {
         // if the value is not yet in the tree then create new node
         if (currentNode->child4 == nullptr) {
-          currentNode->child4 = new QTreeNode();
-          currentNode->child4->Data = 'g';
-          currentNode->child4->child1 = nullptr;
-          currentNode->child4->child2 = nullptr;
-          currentNode->child4->child3 = nullptr;
-          currentNode->child4->child4 = nullptr;
+          currentNode->child4 = QuarternaryTree::CreateNode('g');
         }
         currentNode = currentNode->child4; // make sure to move down the tree
       }
@@ -174,3 +142,4 @@ bool QuarternaryTree::compare_vector_to_tree(std::vector<std::string> &v) {
   out.close();
   return true;
 }
+

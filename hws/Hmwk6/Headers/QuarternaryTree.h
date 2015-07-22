@@ -5,16 +5,15 @@
 
 class QuarternaryTree // created a class for the quarternary tree
 {
-private:
-  void clearing();
-  void recursive_delete(QTreeNode *node);
-  void deleteNode(QTreeNode *node);
-
 public:
-  QTreeNode *Root;
   QuarternaryTree();
   ~QuarternaryTree();
-  bool insert_vector(std::vector<std::string> &w); // used address to find pointer
+
+  QTreeNode *Root;
+  QTreeNode * CreateNode(const char val);
+
+  // used address to find pointer
+  bool insert_vector(std::vector<std::string> &w);
   bool compare_vector_to_tree(std::vector<std::string> &v);
 };
 #endif // QUARTERNARYTREE_H
