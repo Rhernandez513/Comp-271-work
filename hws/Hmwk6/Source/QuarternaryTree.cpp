@@ -1,31 +1,22 @@
-#include "../Headers/QTreeNode.h"
+#include "../Headers/QuarternaryTree.h"
 #include <vector>
 #include <iostream>
 #include <fstream>
 
-class QuarternaryTree // created a class for the quarternary tree
-    {
-private:
-  void clearing();
-  void recursive_delete(QTreeNode *node);
-  void deleteNode(QTreeNode *node);
-
-public:
-  QTreeNode *Root;
-  QuarternaryTree() { Root = NULL; }
-  bool insert_vector(std::vector<std::string> &w); // used address to find pointer
-  bool compare_vector_to_tree(std::vector<std::string> &v);
-
-  // deleting the trees recursively.
-  ~QuarternaryTree() {
-    clearing();
-    delete Root;
-  }
+QuarternaryTree::QuarternaryTree() {
+  Root = NULL;
 };
 
 void QuarternaryTree::clearing() {
   recursive_delete(Root);
 } // for deleting recursive and passed root
+
+// deleting the trees recursively.
+QuarternaryTree::~QuarternaryTree()
+{
+  clearing();
+  delete Root;
+};
 
 void QuarternaryTree::recursive_delete(
     QTreeNode *node) // checking if the nodes are null,
@@ -51,7 +42,7 @@ bool QuarternaryTree::insert_vector(std::vector<std::string> &w) {
     std::string temp = w[i]; // string to work with
     // this will be the pointer that navigates through the tree
     QTreeNode *currentNode = Root;
-    for (auto n = 0; n < temp.size(); n++) {
+    for (int n = 0, tSize = temp.size(); n < tSize; n++) {
       if (Root == NULL) {
         // create new BTreeNode, give it's data a value of z
         // because this will differentiate it
@@ -112,13 +103,13 @@ bool QuarternaryTree::insert_vector(std::vector<std::string> &w) {
         }
         currentNode = currentNode->child4; // make sure to move down the tree
       }
-    }
+    } // End inner For
     // double checking to make sure that currentnode will point to nothing
     currentNode->child1 = NULL;
     currentNode->child2 = NULL;
     currentNode->child3 = NULL;
     currentNode->child4 = NULL;
-  }
+  } // End outer For
   return true;
 }
 

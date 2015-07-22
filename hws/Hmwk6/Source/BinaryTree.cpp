@@ -2,14 +2,16 @@
 #include <iostream>
 #include <fstream>
 
+BinaryTree::BinaryTree() { Root = NULL; };
+
 bool BinaryTree::insert_vector(std::vector<std::string> &w) {
   // increment through each string in vector
-  for (int i = 0; i < w.size(); i++) {
+  for (int i = 0, wSize = w.size(); i < wSize; i++) {
     // string to work with
     std::string temp = w[i];
     // this will be the pointer that navigates through the tree
     BTreeNode *currentNode = Root;
-    for (int n = 0; n < temp.size(); n++) {
+    for (int n = 0, s = temp.size(); n < s; n++) {
       if (Root == NULL) {
         // create new BTreeNode, give it's data a value of z
         // because this will differentiate it
@@ -39,9 +41,9 @@ bool BinaryTree::insert_vector(std::vector<std::string> &w) {
         }
         // making sure to move down the tree
         currentNode = currentNode->Rchild;
-      }
-    }
-  }
+      } // End if
+    } // End inner For
+  } // End outer For
   return true;
 }
 

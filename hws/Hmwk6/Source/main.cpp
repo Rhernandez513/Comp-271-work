@@ -13,7 +13,7 @@ bool write_vector_to_file(std::vector<std::string> v, char *file_name);
 int main() {
   std::vector<std::string> words;
   std::vector<std::string> words1;
-  char *genome_file_name = "genome_file.txt"; // make certain to place this file
+  char *genome_file_name = "../Resourcesgenome_file.txt"; // make certain to place this file
                                               // in the correct folder. Do not
                                               // change path.
   if (!get_words(genome_file_name, words,
@@ -194,8 +194,6 @@ bool get_reads(char *file_name, std::vector<std::string> &r, char type) {
   delete word;
   return true;
 }
-
-bool write_vector_to_screen(std::vector<std::string> v);
 
 bool write_vector_to_file(std::vector<std::string> v, char *file_name) {
   std::ofstream out (file_name, std::ofstream::out);
