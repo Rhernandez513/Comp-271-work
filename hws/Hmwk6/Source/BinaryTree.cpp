@@ -2,7 +2,11 @@
 #include <iostream>
 #include <fstream>
 
-BinaryTree::BinaryTree() { Root = NULL; };
+BinaryTree::BinaryTree() { Root = nullptr; };
+
+BTreeNode * BinaryTree::CreateNode(const char val) {
+  return new BTreeNode(val);
+}
 
 bool BinaryTree::insert_vector(std::vector<std::string> &w) {
   // increment through each string in vector
@@ -12,32 +16,23 @@ bool BinaryTree::insert_vector(std::vector<std::string> &w) {
     // this will be the pointer that navigates through the tree
     BTreeNode *currentNode = Root;
     for (int n = 0, s = temp.size(); n < s; n++) {
-      if (Root == NULL) {
+      if (Root == nullptr) {
         // create new BTreeNode, give it's data a value of z
         // because this will differentiate it
-        Root = new BTreeNode();
-        Root->Data = 'z';
-        Root->Lchild = NULL;
-        Root->Rchild = NULL;
+        Root = BinaryTree::CreateNode('z');
         currentNode = Root;
       }
       if (temp[n] == 'y') {
         // if the value is not yet in the tree then create new node
-        if (currentNode->Lchild == NULL) {
-          currentNode->Lchild = new BTreeNode();
-          currentNode->Lchild->Data = 'y';
-          currentNode->Lchild->Lchild = NULL;
-          currentNode->Lchild->Rchild = NULL;
+        if (currentNode->Lchild == nullptr) {
+          currentNode->Lchild = BinaryTree::CreateNode('y');
         }
         // make sure to move down the tree
         currentNode = currentNode->Lchild;
       } else if (temp[n] == 'r') {
         // if the value is not yet in the tree then create new node
-        if (currentNode->Rchild == NULL) {
-          currentNode->Rchild = new BTreeNode();
-          currentNode->Rchild->Data = 'r';
-          currentNode->Rchild->Lchild = NULL;
-          currentNode->Rchild->Rchild = NULL;
+        if (currentNode->Rchild == nullptr) {
+          currentNode->Rchild = BinaryTree::CreateNode('r');
         }
         // making sure to move down the tree
         currentNode = currentNode->Rchild;
@@ -66,22 +61,22 @@ bool BinaryTree::compare_vector_to_tree(std::vector<std::string> &v) {
       std::cout << temp[n];    // printing to console each character
       if (temp[n] == 'r') // if the letter is r
       {
-        if (currentNode->Rchild != NULL &&
+        if (currentNode->Rchild != nullptr &&
             currentNode->Rchild->Data == temp[n]) {
           currentNode = currentNode->Rchild;
         }
-        // if the Rchild is not NULL, AND the Rchild's data is r then move on
+        // if the Rchild is not nullptr, AND the Rchild's data is r then move on
         // (double checking)
         else {
           flag = false;
           break;
         }                          // else make the flag false, break for loop
       } else if (temp[n] == 'y') { // if the letter is y,
-        if (currentNode->Lchild != NULL &&
+        if (currentNode->Lchild != nullptr &&
             currentNode->Lchild->Data == temp[n]) {
           currentNode = currentNode->Lchild;
         }
-        // if the Lchild is not NULL AND the Rchild's data is r then move on
+        // if the Lchild is not nullptr AND the Rchild's data is r then move on
         // (double checking)
         else {
           flag = false;

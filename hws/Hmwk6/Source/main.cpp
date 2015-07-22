@@ -13,7 +13,7 @@ bool write_vector_to_file(std::vector<std::string> v, char *file_name);
 int main() {
   std::vector<std::string> words;
   std::vector<std::string> words1;
-  char *genome_file_name = "../Resourcesgenome_file.txt"; // make certain to place this file
+  char *genome_file_name = "../Resources/genome_file.txt"; // make certain to place this file
                                               // in the correct folder. Do not
                                               // change path.
   if (!get_words(genome_file_name, words,
@@ -35,7 +35,7 @@ int main() {
 
   // Make certain to place this file in the correct folder
   // Do not change path.
-  char *reads_file_name = "test_file.txt";
+  char *reads_file_name = "../Resources/test_file.txt";
   // if doing QTreeNode, pass in 'Q'
   if (!get_reads(reads_file_name, reads1, 'B'))
     return 1;
@@ -91,24 +91,20 @@ the quartenary tree. This function will translate the file such that the
 same file can be used for either tree.
 *******************************************************************************/
 bool get_words(char *file_name, std::vector<std::string> &w, char type) {
-  int len = 0;
   std::ifstream in;
   in.open(file_name);
   if (!in.is_open()) {
     std::cout << "The genome file could not be opened. Check the location.\t";
     return false;
   }
+  // this is a default, we'll be looking at words of size 10
+  char *word = new char[11];
 
-  char *word =
-      new char[11]; // this is a default, we'll be looking at words of size 10
-  while (in.peek() != EOF) {
-    in >> word[0];
-    len++;
-  } // gets the length of the sequence
-  in.clear();
-  in.close();
-  in.open(file_name); // have to close and reopen file to reset filestream to
-                      // beginning of file
+  // Get Length of file
+  in.seekg(0, in.end);
+  int len = in.tellg();
+  in.clear(); // Can comment this out if using C++11
+  in.seekg(0, in.beg);
 
   for (int i = 0; i < 10; i++) {
     in >> word[i];
@@ -141,7 +137,7 @@ bool get_words(char *file_name, std::vector<std::string> &w, char type) {
     word[10] = '\0';
     // strcpy(w[i], word);
     std::cout << i << "\t" << word << std::endl;
-    std::cout.flush();
+    //std::cout.flush(); // No Need with endl ^
     w.push_back(word);
   }
   in.clear();
@@ -168,18 +164,18 @@ bool get_reads(char *file_name, std::vector<std::string> &r, char type) {
     return false;
   }
 
-  char *word =
-      new char[20]; // this is a default, we'll be looking at words of size 10
+  // this is a default, we'll be looking at words of size 10
+  char *word = new char[20];
 
   while (in.peek() != EOF) {
     in.getline(word, 20, '\n');
     for (i = 0; i < 10; i++) {
       if (word[i] < 97)
-        word[i] += 32;
-    }                               // makes it lowercase
-    if (type == 'B' || type == 'b') // if doing BTree, translates 4 letter code
-                                    // into two letter code
-    {
+        word[i] += 32;  // makes it lowercase
+    }
+    // if doing BTree, translates 4 letter code
+    // into two letter code
+    if (type == 'B' || type == 'b') {
       for (i = 0; i < 10; i++) {
         if (word[i] == 'a' || word[i] == 'g')
           word[i] = 'r'; // purine
@@ -188,7 +184,7 @@ bool get_reads(char *file_name, std::vector<std::string> &r, char type) {
       }
     }
     r.push_back(word);
-  }
+  } // End While
   in.clear();
   in.close();
   delete word;
@@ -197,7 +193,7 @@ bool get_reads(char *file_name, std::vector<std::string> &r, char type) {
 
 bool write_vector_to_file(std::vector<std::string> v, char *file_name) {
   std::ofstream out (file_name, std::ofstream::out);
-  for (auto i = 0; i < v.size(); i++)
+  for (auto i = 0, s = v.size(); i < s; i++)
     out << v[i].c_str() << std::endl;
   out.clear();
   out.close();
@@ -206,7 +202,7 @@ bool write_vector_to_file(std::vector<std::string> v, char *file_name) {
 
 bool write_vector_to_screen(std::vector<std::string> v)
 {
-  for (auto i = 0; i < v.size(); i++)
+  for (auto i = 0, s = v.size(); i < s; i++)
     std::cout << v[i].c_str() << std::endl;
   return true;
 }

@@ -3,6 +3,8 @@
 
 class BTreeNode {
 public:
+  BTreeNode() { }
+  BTreeNode(const char val) { }
   char Data;
   BTreeNode *Lchild;
   BTreeNode *Rchild;
