@@ -51,7 +51,7 @@ bool BinaryTree::compare_vector_to_tree(std::vector<std::string> &v) {
                        // to print to file
   int truthcount = 0;
   // will keep track of how many strings match from reads.txt to my tree
-  for (int i = 0; i < v.size(); i++) {
+  for (int i = 0, s = v.size(); i < s; i++) {
     std::string temp = v[i]; // using string for comparison
     // will help keep track of what's in the tree and what's not
     bool flag = true;
@@ -104,3 +104,4 @@ bool BinaryTree::compare_vector_to_tree(std::vector<std::string> &v) {
   out.close();
   return true;
 }
+
