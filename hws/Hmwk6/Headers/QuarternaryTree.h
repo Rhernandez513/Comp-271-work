@@ -2,6 +2,7 @@
 #define QUARTERNARYTREE_H
 #include "QTreeNode.h"
 #include <vector>
+#include <string>
 
 class QuarternaryTree // created a class for the quarternary tree
 {

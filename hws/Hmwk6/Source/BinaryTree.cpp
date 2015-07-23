@@ -7,19 +7,23 @@ BinaryTree::BinaryTree()
 {
 };
 
-// deleting the nodes recursively.
+// Delete's All node's in the BinaryTree
+// Before deleting itself
 BinaryTree::~BinaryTree()
 {
   if(Root) delete Root;
 };
 
+// Factory Method for BTreeNode
 BTreeNode * BinaryTree::CreateNode(const char val) {
   return new BTreeNode(val);
 }
 
+// Creates and appends a node onto the parentNode 
+// into this Binary Tree If val == 'r' || val == 'y'
+// Returns the newly created node
 BTreeNode * BinaryTree::AppendNode(BTreeNode * parentNode, char val) {
   if(!parentNode) throw "parentNode was null!!";
-
   switch (val) {
   case ('y'):
     // if the value is not yet in the tree then create new node
@@ -28,7 +32,7 @@ BTreeNode * BinaryTree::AppendNode(BTreeNode * parentNode, char val) {
     }
     // make sure to move down the tree
     parentNode = parentNode->Lchild;
-    break;
+  return parentNode;
   case ('r'):
     // if the value is not yet in the tree then create new node
     if (parentNode->Rchild == nullptr) {
@@ -36,28 +40,27 @@ BTreeNode * BinaryTree::AppendNode(BTreeNode * parentNode, char val) {
     }
     // making sure to move down the tree
     parentNode = parentNode->Rchild;
-    break;
-  default:
-    return nullptr;
-  }
   return parentNode;
+  }
+  return nullptr;
 }
 
+// Inserts Each string in vector<string> w into this Binary Tree
 bool BinaryTree::insert_vector(std::vector<std::string> &w) {
+  std::string temp;
   // increment through each string in vector
   for (int i = 0, wSize = w.size(); i < wSize; i++) {
     // string to work with
-    std::string temp = w[i];
+    temp = w[i];
     // this will be the pointer that navigates through the tree
     BTreeNode *currentNode = Root;
     for (int n = 0, s = temp.size(); n < s; n++) {
       if (Root == nullptr) {
         // create new BTreeNode, give it's data a value of z
         // because this will differentiate it
-        Root = BinaryTree::CreateNode('z');
-        currentNode = Root;
+        currentNode = Root = BinaryTree::CreateNode('z');
       }
-      currentNode = BinaryTree::AppendNode(temp[n]);
+      currentNode = BinaryTree::AppendNode(currentNode, temp[n]);
       if (!currentNode) break;
     } // End inner For
   } // End outer For
@@ -68,7 +71,7 @@ bool BinaryTree::insert_vector(std::vector<std::string> &w) {
 // For possible matches within the BinaryTree
 // Returns True if Operation is succesful
 bool BinaryTree::compare_vector_to_tree(std::vector<std::string> &v) {
-  char *file1 = "BReads_map_results.txt";
+  char *file1 = "../Results/BReads_map_results.txt";
   std::ofstream out (file1, std::ofstream::out);
   if(!out.is_open()) {
     std::cout << "Error Opening file to write." << std::endl;
@@ -76,29 +79,29 @@ bool BinaryTree::compare_vector_to_tree(std::vector<std::string> &v) {
   }
 
   // will keep track of how many strings we've gone through to print to file
-  int stringcount = 0; 
+  int stringCount = 0; 
   // will keep track of how many strings match from reads.txt to my tree
-  int truthcount = 0;
+  int truthCount = 0;
 
   bool found = false;
   for (int i = 0, s = v.size(); i < s; i++) {
     std::string temp = v[i]; // using string for comparison
     // will help keep track of what's in the tree and what's not
     found = BinaryTree::CheckCharsInStr(temp);
-    stringcount++;
-    if (found == true) {
-      truthcount++;
+    stringCount++;
+    if (found) {
+      truthCount++;
       std::cout << std::endl;
       std::cout << "String " << temp.c_str() << ": is mapped." << std::endl;
-    } else if (found == false) {
+    } else {
       std::cout << "String " << temp.c_str() << ": is not mapped." << std::endl;
     }
   } // End For
 
-  std::cout << "Total that have been read: " << stringcount << std::endl;
-  out << "Total that have been read: " << stringcount << std::endl;
-  std::cout << "Total that are mapped: " << truthcount << std::endl;
-  out << "Total that are mapped: " << truthcount << std::endl;
+  std::cout << "Total that have been read: " << stringCount << std::endl;
+  out << "Total that have been read: " << stringCount << std::endl;
+  std::cout << "Total that are mapped: " << truthCount << std::endl;
+  out << "Total that are mapped: " << truthCount << std::endl;
   out.clear();
   out.close();
   return true;
@@ -108,31 +111,19 @@ bool BinaryTree::compare_vector_to_tree(std::vector<std::string> &v) {
 // 'r' or 'y' members that match the a path in the BinaryTree
 // Returns True if found, false otherwise
 bool BinaryTree::CheckCharsInStr(std::string temp) {
-  bool flag = true;
   BTreeNode *currentNode = this->Root; // using the Root from this binary tree
   for (int n = 0; n < 10; n++) {         // only ten letters in each string
-    std::cout << temp[n];    // printing to console each character
-    if (temp[n] == 'r') {
-      if (currentNode->Rchild && currentNode->Rchild->GetData() == temp[n]) {
-        currentNode = currentNode->Rchild;
-      } else {
-        // if the Rchild is not nullptr, AND the Rchild's data is r then move on
-        flag = false;
-        break;
-      } 
-    } else if (temp[n] == 'y') {
-      if (currentNode->Lchild && currentNode->Lchild->GetData() == temp[n]) {
-        currentNode = currentNode->Lchild;
-      } else {
-        // if the Lchild is not nullptr AND the Rchild's data is r then move on
-        flag = false;
-        break;
-      }
-    } else { // If for some reason bad data is in the str
-      flag = false;
+    switch (temp[n]) {
+    case ('r'):
+    (currentNode->Rchild && currentNode->Rchild->GetData() == temp[n])
+      ? currentNode = currentNode->Rchild : return false;
       break;
-    }
-  } // End For
-  return flag;
+    case ('y'):
+    (currentNode->Lchild && currentNode->Lchild->GetData() == temp[n])
+      ? currentNode = currentNode->Lchild : return false;
+      break;
+    } // End Switch
+  }
+  return true;
 }
 

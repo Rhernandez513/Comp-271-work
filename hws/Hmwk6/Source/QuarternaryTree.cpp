@@ -1,5 +1,6 @@
 #include "../Headers/QuarternaryTree.h"
 #include <vector>
+#include <string>
 #include <iostream>
 #include <fstream>
 
@@ -8,7 +9,7 @@ QuarternaryTree::QuarternaryTree()
 {
 };
 
-// deleting the nodes recursively.
+// Deletes all Nodes Recursively
 QuarternaryTree::~QuarternaryTree()
 {
   if(Root) delete Root;
@@ -18,10 +19,50 @@ QTreeNode * QuarternaryTree::CreateNode(const char val) {
   return new QTreeNode(val);
 }
 
+// Creates and appends a node onto the parentNode into this Quarternary Tree
+// If val IN ('a', 't', 'c', 'g') Returns the newly created node
+// Else Returns nullptr
+QTreeNode * QuarternaryTree::AppendNode(QTreeNode * parentNode, char val) {
+  if (!parentNode) throw "ParentNode was null!";
+  switch (val) {
+  case ('a'):
+    // if the value is not yet in the tree then create new node
+    if (parentNode->child1 == nullptr) {
+      parentNode->child1 = QuarternaryTree::CreateNode('a');
+    }
+    // make sure to move down the tree
+    parentNode = parentNode->child1;
+    return parentNode;
+  case ('t'):
+    // if the value is not yet in the tree then create new node
+    if (parentNode->child2 == nullptr) {
+      parentNode->child2 = QuarternaryTree::CreateNode('t');
+    }
+    parentNode = parentNode->child2; // make sure to move down the tree
+    return parentNode;
+  case ('c'):
+    // if the value is not yet in the tree then create new node
+    if (parentNode->child3 == nullptr) {
+      parentNode->child3 = QuarternaryTree::CreateNode('c');
+    }
+    parentNode = parentNode->child3; // make sure to move down the tree
+    return parentNode;
+  case ('g'):
+    // if the value is not yet in the tree then create new node
+    if (parentNode->child4 == nullptr) {
+      parentNode->child4 = QuarternaryTree::CreateNode('g');
+    }
+    parentNode = parentNode->child4; // make sure to move down the tree
+    return parentNode;
+  }
+  return nullptr;
+}
+
+// Inserts each string in vector<string> w into the QuarternaryTree
 bool QuarternaryTree::insert_vector(std::vector<std::string> &w) {
-  for (auto i = 0; i < w.size();
-       i++) {           // increment through each string in vector
-    std::string temp = w[i]; // string to work with
+  std::string temp;
+  for (auto i = 0; i < w.size(); i++) {
+    temp = w[i]; // string to work with
     // this will be the pointer that navigates through the tree
     QTreeNode *currentNode = Root;
     for (int n = 0, tSize = temp.size(); n < tSize; n++) {
@@ -31,102 +72,63 @@ bool QuarternaryTree::insert_vector(std::vector<std::string> &w) {
         Root = QuarternaryTree::CreateNode('z');
         currentNode = Root;
       }
-      if (temp[n] == 'a') {
-        // if the value is not yet in the tree then create new node
-        if (currentNode->child1 == nullptr) {
-          currentNode->child1 = QuarternaryTree::CreateNode('a');
-        }
-        // make sure to move down the tree
-        currentNode = currentNode->child1;
-      }
-      if (temp[n] == 't') {
-        // if the value is not yet in the tree then create new node
-        if (currentNode->child2 == nullptr) {
-          currentNode->child2 = QuarternaryTree::CreateNode('t');
-        }
-        currentNode = currentNode->child2; // make sure to move down the tree
-      }
-      if (temp[n] == 'c') {
-        // if the value is not yet in the tree then create new node
-        if (currentNode->child3 == nullptr) {
-          currentNode->child3 = QuarternaryTree::CreateNode('c');
-        }
-        currentNode = currentNode->child3; // make sure to move down the tree
-      }
-      if (temp[n] == 'g') {
-        // if the value is not yet in the tree then create new node
-        if (currentNode->child4 == nullptr) {
-          currentNode->child4 = QuarternaryTree::CreateNode('g');
-        }
-        currentNode = currentNode->child4; // make sure to move down the tree
-      }
+      currentNode = AppendNode(currentNode, temp[n]);
+      if (!currentNode) break;
     } // End inner For
-    // double checking to make sure that currentnode will point to nothing
-    currentNode->child1 = nullptr;
-    currentNode->child2 = nullptr;
-    currentNode->child3 = nullptr;
-    currentNode->child4 = nullptr;
   } // End outer For
   return true;
 }
 
+// Checks the Chars in the std::string inStr to see
+// If it matches any of the Tree's mappings
+// Returns True if match found, false otherwise
+bool QuarternaryTree::CheckCharsInStr(std::string inStr) {
+  QTreeNode *currentNode = this->Root;
+  for (int n = 0; n < 10; n++) {
+    switch (inStr[n]) {
+    case ('a'): // Adenine
+      (currentNode->child1 && currentNode->child1->Data == inStr[n])
+        ? currentNode = currentNode->child1 : return false;
+    break;
+    case ('t'): // Thymine
+      (currentNode->child2 && currentNode->child2->Data == inStr[n])
+        ? currentNode = currentNode->child2 : return false;
+    break;
+    case ('c'): // Cytosine
+      (currentNode->child3 && currentNode->child3->Data == inStr[n])
+        ? currentNode = currentNode->child3 : return false;
+    break;
+    case ('g'): // Guanine
+      (currentNode->child4 && currentNode->child4->Data == inStr[n])
+        ? currentNode = currentNode->child4 : return false;
+    break;
+    } // End Switch
+  }
+  return true;
+}
+
+// Compares all strings in the vector<string> w
+// For possible matches within the BinaryTree
+// Returns True if Operation is succesful
 bool QuarternaryTree::compare_vector_to_tree(std::vector<std::string> &v) {
-  char *file1 = "QReads_map_results.txt";
+  bool flag;
+  std::string temp;
+  char *file1 = "../Results/QReads_Map_Results.txt";
   std::ofstream out(file1, std::ofstream::out);
-  int stringcount = 0; // will keep track of how many strings we've gone through
-                       // to print to file
-  int truthcount =
-      0; // will keep track of how many strings match from reads.txt to my tree
+  if(!out.is_open()) {
+    std::cout << "Error Opening file to write." << std::endl;
+    return false;
+  }
+  int stringCount = 0;
+  int truthCount = 0;
+  // will keep track of how many strings match from reads.txt to my tree
   for (int i = 0; i < v.size(); i++) {
-    std::string temp = v[i]; // using string for comparison
-    bool flag =
-        true; // will help keep track of what's in the tree and what's not
-    QTreeNode *currentNode = this->Root; // using the Root from this binary tree
-    for (int n = 0; n < 10; n++) {       // only ten letters in each string
-      if (temp[n] == 'a') {              // if the letter is a
-        if (currentNode->child1 != nullptr &&
-            currentNode->child1->Data == temp[n]) {
-          currentNode = currentNode->child1;
-        } else {
-          flag = false;
-          break;
-        }                          // if a then it will move down the tree
-      } else if (temp[n] == 't') { // if the letter is t,
-        if (currentNode->child2 != nullptr &&
-            currentNode->child2->Data == temp[n]) {
-          currentNode = currentNode->child2;
-        }
-        // if the Lchild is not nullptr AND the Rchild's data is r
-        // then move on (double checking)
-        else {
-          flag = false;
-          break;
-        }                          // else make the flag false, break for loop
-      } else if (temp[n] == 'c') { // if the letter is c
-        if (currentNode->child3 != nullptr &&
-            currentNode->child3->Data == temp[n]) {
-          currentNode = currentNode->child3;
-        } else {
-          flag = false;
-          break;
-        } // if the letter is c
-        // then it will move down the tree
-      } else if (temp[n] == 'g') {
-        if (currentNode->child4 != nullptr &&
-            currentNode->child4->Data == temp[n]) {
-          currentNode = currentNode->child4;
-        } else {
-          flag = false;
-          break;
-        }
-      } else {
-        flag = false;
-        break;
-      }
-    }
-    stringcount++; // incrementing the amount of strings counted for comparison
+    temp = v[i]; // using string for comparison
+    // will help keep track of what's in the tree and what's not
+    flag = QuarternaryTree::CheckCharsInStr(temp);
+    stringCount++; // incrementing the amount of strings counted for comparison
     if (flag == true) {
-      truthcount++;
+      truthCount++;
       std::cout << "String " << i + 1 << ": is Mapped." << std::endl;
       out << "String " << i + 1 << ": is Mapped." << std::endl;
     } else if (flag == false) {
@@ -134,10 +136,10 @@ bool QuarternaryTree::compare_vector_to_tree(std::vector<std::string> &v) {
       out << "String " << i + 1 << ": is not Mapped." << std::endl;
     }
   }
-  std::cout << "Total QTree that reads: " << stringcount << std::endl;
-  out << "Total QTree that reads: " << stringcount << std::endl;
-  std::cout << "Total QTree reads mapped: " << truthcount << std::endl;
-  out << "Total QTree reads mapped: " << truthcount << std::endl;
+  std::cout << "Total QTree that reads: " << stringCount << std::endl;
+  out << "Total QTree that reads: " << stringCount << std::endl;
+  std::cout << "Total QTree reads mapped: " << truthCount << std::endl;
+  out << "Total QTree reads mapped: " << truthCount << std::endl;
   out.clear();
   out.close();
   return true;

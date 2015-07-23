@@ -9,9 +9,11 @@ public:
   BTreeNode *Root;
   BinaryTree() { }
   ~BinaryTree() { }
+  BTreeNode * CreateNode(const char val);
+  BTreeNode * AppendNode(BTreeNode * parentNode, char val);
+  bool CheckCharsInStr(std::string temp);
   bool insert_vector(std::vector<std::string> &w);
   bool compare_vector_to_tree(std::vector<std::string> &v);
-  BTreeNode * CreateNode(const char val);
 };
 #endif // BINARYTREE.H
 

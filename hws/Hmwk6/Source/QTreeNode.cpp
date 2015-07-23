@@ -14,6 +14,7 @@ QTreeNode::QTreeNode(const char val)
   this->Data = val;
 }
 
+// Deletes this node and All Children
 QTreeNode::~QTreeNode() {
   if(child1) delete child1;
   if(child2) delete child2;
