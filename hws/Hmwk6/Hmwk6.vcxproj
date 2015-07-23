@@ -65,7 +65,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\BinaryTree.cpp" />
+    <ClCompile Include="Source\BTreeNode.cpp" />
     <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\QTreeNode.cpp" />
     <ClCompile Include="Source\QuarternaryTree.cpp" />
   </ItemGroup>
   <ItemGroup>

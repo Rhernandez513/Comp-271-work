@@ -2,6 +2,8 @@
 #include <iostream>
 #include <fstream>
 
+using namespace hw6;
+
 BinaryTree::BinaryTree()
  : Root(nullptr) 
 {
@@ -111,19 +113,21 @@ bool BinaryTree::compare_vector_to_tree(std::vector<std::string> &v) {
 // 'r' or 'y' members that match the a path in the BinaryTree
 // Returns True if found, false otherwise
 bool BinaryTree::CheckCharsInStr(std::string temp) {
+  bool flag = true;
   BTreeNode *currentNode = this->Root; // using the Root from this binary tree
-  for (int n = 0; n < 10; n++) {         // only ten letters in each string
+  for (int n = 0; n < 10; n++) {       // only ten letters in each string
     switch (temp[n]) {
     case ('r'):
     (currentNode->Rchild && currentNode->Rchild->GetData() == temp[n])
-      ? currentNode = currentNode->Rchild : return false;
+      ? currentNode = currentNode->Rchild : flag = false;
       break;
     case ('y'):
     (currentNode->Lchild && currentNode->Lchild->GetData() == temp[n])
-      ? currentNode = currentNode->Lchild : return false;
+      ? currentNode = currentNode->Lchild : flag = false;
       break;
     } // End Switch
+    if (!flag) break; // Out of For loop
   }
-  return true;
+  return flag;
 }
 

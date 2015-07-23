@@ -4,6 +4,7 @@
 #include "../Headers/BinaryTree.h"
 #include "../Headers/QuarternaryTree.h"
 
+using namespace hw6;
 
 bool get_words(char *file_name, std::vector<std::string> &w, char type);
 bool get_reads(char *file_name, std::vector<std::string> &r, char type);
@@ -13,9 +14,7 @@ bool write_vector_to_file(std::vector<std::string> v, char *file_name);
 int main() {
   std::vector<std::string> words;
   std::vector<std::string> words1;
-  char *genome_file_name = "../Resources/genome_file.txt"; // make certain to place this file
-                                              // in the correct folder. Do not
-                                              // change path.
+  char *genome_file_name = "../Resources/genome_file.txt";
   if (!get_words(genome_file_name, words,
                  'B')) // if not get words because get words is different
     return 1;
@@ -193,7 +192,7 @@ bool get_reads(char *file_name, std::vector<std::string> &r, char type) {
 
 bool write_vector_to_file(std::vector<std::string> v, char *file_name) {
   std::ofstream out (file_name, std::ofstream::out);
-  for (auto i = 0, s = v.size(); i < s; i++)
+  for (int i = 0, s = v.size(); i < s; i++)
     out << v[i].c_str() << std::endl;
   out.clear();
   out.close();
@@ -202,7 +201,7 @@ bool write_vector_to_file(std::vector<std::string> v, char *file_name) {
 
 bool write_vector_to_screen(std::vector<std::string> v)
 {
-  for (auto i = 0, s = v.size(); i < s; i++)
+  for (int i = 0, s = v.size(); i < s; i++)
     std::cout << v[i].c_str() << std::endl;
   return true;
 }

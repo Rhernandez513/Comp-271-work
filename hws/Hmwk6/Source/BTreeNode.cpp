@@ -1,4 +1,6 @@
-#include "BTreeNode.h"
+#include "../Headers/BTreeNode.h"
+
+using namespace hw6;
 
 BTreeNode::BTreeNode()
  : Lchild(nullptr)
@@ -8,8 +10,8 @@ BTreeNode::BTreeNode()
 
 BTreeNode::BTreeNode(const char val)
   : BTreeNode()
-  , Data(val)
 {
+  this->Data = val;
 }
 
 BTreeNode::~BTreeNode() {
@@ -17,6 +19,6 @@ BTreeNode::~BTreeNode() {
   if (Rchild) delete Rchild;
 }
 
-BTreeNode::GetData() {
+char BTreeNode::GetData() {
   return this->Data;
 }

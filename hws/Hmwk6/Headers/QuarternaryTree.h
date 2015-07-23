@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 
+namespace hw6 {
 class QuarternaryTree // created a class for the quarternary tree
 {
 public:
@@ -12,10 +13,12 @@ public:
 
   QTreeNode *Root;
   QTreeNode * CreateNode(const char val);
+  QTreeNode * AppendNode(QTreeNode * parentNode, char val);
 
-  // used address to find pointer
+  bool CheckCharsInStr(std::string inStr);
   bool insert_vector(std::vector<std::string> &w);
   bool compare_vector_to_tree(std::vector<std::string> &v);
 };
+}
 #endif // QUARTERNARYTREE_H
 

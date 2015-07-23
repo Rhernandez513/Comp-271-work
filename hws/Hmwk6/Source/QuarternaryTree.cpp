@@ -4,6 +4,8 @@
 #include <iostream>
 #include <fstream>
 
+using namespace hw6;
+
 QuarternaryTree::QuarternaryTree()
   : Root(nullptr)
 {
@@ -83,28 +85,30 @@ bool QuarternaryTree::insert_vector(std::vector<std::string> &w) {
 // If it matches any of the Tree's mappings
 // Returns True if match found, false otherwise
 bool QuarternaryTree::CheckCharsInStr(std::string inStr) {
+  bool flag = true;
   QTreeNode *currentNode = this->Root;
   for (int n = 0; n < 10; n++) {
     switch (inStr[n]) {
     case ('a'): // Adenine
       (currentNode->child1 && currentNode->child1->Data == inStr[n])
-        ? currentNode = currentNode->child1 : return false;
+        ? currentNode = currentNode->child1 : flag = false;
     break;
     case ('t'): // Thymine
       (currentNode->child2 && currentNode->child2->Data == inStr[n])
-        ? currentNode = currentNode->child2 : return false;
+        ? currentNode = currentNode->child2 : flag = false;
     break;
     case ('c'): // Cytosine
       (currentNode->child3 && currentNode->child3->Data == inStr[n])
-        ? currentNode = currentNode->child3 : return false;
+        ? currentNode = currentNode->child3 : flag = false;
     break;
     case ('g'): // Guanine
       (currentNode->child4 && currentNode->child4->Data == inStr[n])
-        ? currentNode = currentNode->child4 : return false;
-    break;
+        ? currentNode = currentNode->child4 : flag = false;
+      break;
     } // End Switch
+    if (!flag) break; // out of for loop
   }
-  return true;
+  return flag;
 }
 
 // Compares all strings in the vector<string> w
@@ -122,18 +126,18 @@ bool QuarternaryTree::compare_vector_to_tree(std::vector<std::string> &v) {
   int stringCount = 0;
   int truthCount = 0;
   // will keep track of how many strings match from reads.txt to my tree
-  for (int i = 0; i < v.size(); i++) {
+  for (int i = 0, s = v.size(); i < s; i++) {
     temp = v[i]; // using string for comparison
     // will help keep track of what's in the tree and what's not
     flag = QuarternaryTree::CheckCharsInStr(temp);
     stringCount++; // incrementing the amount of strings counted for comparison
-    if (flag == true) {
+    if (flag) {
       truthCount++;
-      std::cout << "String " << i + 1 << ": is Mapped." << std::endl;
-      out << "String " << i + 1 << ": is Mapped." << std::endl;
-    } else if (flag == false) {
-      std::cout << "String " << i + 1 << ": is not Mapped." << std::endl;
-      out << "String " << i + 1 << ": is not Mapped." << std::endl;
+      std::cout << "String (" << temp << ") is Mapped." << std::endl;
+      out << "String (" << temp << ") is Mapped." << std::endl;
+    } else {
+      std::cout << "String (" << temp << ") is not Mapped." << std::endl;
+      out << "String (" << temp << ") is not Mapped." << std::endl;
     }
   }
   std::cout << "Total QTree that reads: " << stringCount << std::endl;
@@ -144,4 +148,3 @@ bool QuarternaryTree::compare_vector_to_tree(std::vector<std::string> &v) {
   out.close();
   return true;
 }
-
