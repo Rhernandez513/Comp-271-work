@@ -1,4 +1,4 @@
-#include "../Headers/QTreeNode.h"
+#include "..\\Headers\\QTreeNode.h"
 
 using namespace hw6;
 

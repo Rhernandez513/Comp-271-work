@@ -1,0 +1,2 @@
+Total that have been read: 5375
+Total that are mapped: 5375

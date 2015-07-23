@@ -1,8 +1,9 @@
+#include "..\\Headers\\BinaryTree.h"
+#include "..\\Headers\\QuarternaryTree.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include "../Headers/BinaryTree.h"
-#include "../Headers/QuarternaryTree.h"
+
 
 using namespace hw6;
 
@@ -10,74 +11,103 @@ bool get_words(char *file_name, std::vector<std::string> &w, char type);
 bool get_reads(char *file_name, std::vector<std::string> &r, char type);
 bool write_vector_to_screen(std::vector<std::string> v);
 bool write_vector_to_file(std::vector<std::string> v, char *file_name);
+void printDashes();
+void bufferClear();
 
 int main() {
   std::vector<std::string> words;
-  std::vector<std::string> words1;
-  char *genome_file_name = "../Resources/genome_file.txt";
-  if (!get_words(genome_file_name, words,
-                 'B')) // if not get words because get words is different
-    return 1;
-  if (!get_words(genome_file_name, words1, 'Q'))
-    return 1;
+  std::vector<std::string> wordsQT;
+  std::vector<std::string> reads;
+  std::vector<std::string> readsQT;
+  std::string lines = "--------------------";
+  std::string writeSuccessMsg = "File Write Operation Succesfull.";
+  std::string mappingMsg = "Begining Mapping. Press Any Key to Continue...\n";
+  char * reads_file_name = "C:\\Users\\rhern_000\\Documents\\GitHub\\Comp-271-work\\hws\\Hmwk6\\Resources\\test_file.txt";
+  char * QT_reads_file_name = "C:\\Users\\rhern_000\\Documents\\GitHub\\Comp-271-work\\hws\\Hmwk6\\Resources\\test_fileQT.txt";
+  char * genome_file_name = "C:\\Users\\rhern_000\\Documents\\GitHub\\Comp-271-work\\hws\\Hmwk6\\Resources\\genome_file.txt";
+  char * words_raw_file_name = "C:\\Users\\rhern_000\\Documents\\GitHub\\Comp-271-work\\\hws\\Hmwk6\\Results\\raw_words.txt";
+  char * QT_words_raw_file_name = "C:\\Users\\rhern_000\\Documents\\GitHub\\Comp-271-work\\hws\\Hmwk6\\Results\\QT_raw_words.txt";
+  bool writeSuccess;
+
+  if (!get_words(genome_file_name, words, 'B')) return 1;
+  if (!get_words(genome_file_name, wordsQT, 'Q')) return 1;
+
+  std::cout << "Press any key to display Raw words." << std::endl;
+  std::cin.get();
+  bufferClear();
+  write_vector_to_screen(words);
+
+  std::cout << "Press any key to write Raw words to file." << std::endl;
+  std::cin.get();
+  bufferClear();
+  writeSuccess = write_vector_to_file(words, words_raw_file_name);
+  if (writeSuccess) std::cout << writeSuccessMsg << std::endl;
+
+  std::cout << "Press any key to display Raw QT words." << std::endl;
+  std::cin.get();
+  bufferClear();
+  write_vector_to_screen(wordsQT);
+
+  std::cout << "Press any key to write Raw QT words to file." << std::endl;
+  std::cin.get();
+  bufferClear();
+  writeSuccess = write_vector_to_file(wordsQT, QT_words_raw_file_name);
+  if (writeSuccess) std::cout << writeSuccessMsg << std::endl;
 
   // 1. Create a tree based on either BTreeNode or QTreeNode
   // --> transforming the vector of words into the tree
-  BinaryTree BGenomeTree;
-  QuarternaryTree QGenomeTree;
-  BGenomeTree.insert_vector(words);
-  QGenomeTree.insert_vector(words1);
+  BinaryTree * BGenomeTree = new BinaryTree();
+  BGenomeTree->insert_vector(words);
+  QuarternaryTree * QGenomeTree = new QuarternaryTree();
+  QGenomeTree->insert_vector(wordsQT);
+
   // 2. Read in file BReads or QReads using function
   // get_reads(read_file_name,reads);
-  std::vector<std::string> reads1;
-  std::vector<std::string> reads2;
-
-  // Make certain to place this file in the correct folder
-  // Do not change path.
-  char *reads_file_name = "../Resources/test_file.txt";
   // if doing QTreeNode, pass in 'Q'
-  if (!get_reads(reads_file_name, reads1, 'B'))
-    return 1;
-  if (!get_reads(reads_file_name, reads2, 'Q'))
-    return 1;
+  if (!get_reads(reads_file_name, reads, 'B')) return 1;
+  if (!get_reads(QT_reads_file_name, readsQT, 'Q')) return 1;
 
   // 3. for each read, map it through the tree.
   // If it follows a path in the tree, this read belongs to this genome.
   // Write out a file named "BReads_map_results.txt" or "QReads_map_results.txt"
   // listing each read and "Yes" or "No" if it does or doesn't map to the
   // genome.
-  std::cout << std::endl;
-  std::cout << "--------------------------------------------------------------"
-            << std::endl;
-  std::cout << "----------------------BINARY TREE MAPPING---------------------"
-            << std::endl;
-  std::cout << "--------------------------------------------------------------"
-            << std::endl;
-  BGenomeTree.compare_vector_to_tree(reads1);
-  std::cout << "--------------------------------------------------------------"
-            << std::endl;
-  std::cout << "----------------------BINARY TREE ENDED---------------------"
-            << std::endl;
-  std::cout << "--------------------------------------------------------------"
-            << std::endl;
-  std::cout << std::endl;
-  std::cout << std::endl;
-  std::cout << "--------------------------------------------------------------"
-            << std::endl;
-  std::cout
-      << "----------------------QUATERNARY TREE MAPPING---------------------"
-      << std::endl;
-  std::cout << "--------------------------------------------------------------"
-            << std::endl;
-  QGenomeTree.compare_vector_to_tree(reads2);
-  std::cout << "--------------------------------------------------------------"
-            << std::endl;
-  std::cout << "----------------------QUATERNARY TREE ENDED. "
-               "QUIT---------------------" << std::endl;
-  std::cout << "--------------------------------------------------------------"
-            << std::endl;
-  BGenomeTree.~BinaryTree();
-  QGenomeTree.~QuarternaryTree();
+
+  std::cout << mappingMsg << std::endl;
+  std::cin.get();
+  bufferClear();
+
+  printDashes(); 
+  std::cout << lines << "BINARY TREE MAPPING" << lines << std::endl;
+  printDashes(); 
+
+  BGenomeTree->compare_vector_to_tree(reads);
+  delete BGenomeTree;
+  
+  printDashes(); 
+  std::cout << "\n" << lines << "BINARY TREE ENDED" << lines << std::endl;
+  printDashes(); 
+
+  std::cout << mappingMsg << std::endl;
+  std::cin.get();
+  bufferClear();
+
+  printDashes(); 
+  std::cout << "\n" << lines << "QUATERNARY TREE MAPPING" << lines << std::endl;
+  printDashes(); 
+
+  QGenomeTree->compare_vector_to_tree(readsQT);
+  delete QGenomeTree;
+
+  printDashes(); 
+  std::cout << lines << "QUATERNARY TREE ENDED. QUIT" << lines << std::endl;
+  printDashes(); 
+
+  std::cout << "\nGoodbye!\n" << std::endl;
+  std::cin.get();
+  bufferClear();
+
+  return 0;
 }
 
 /*******************************************************************************
@@ -90,8 +120,7 @@ the quartenary tree. This function will translate the file such that the
 same file can be used for either tree.
 *******************************************************************************/
 bool get_words(char *file_name, std::vector<std::string> &w, char type) {
-  std::ifstream in;
-  in.open(file_name);
+  std::fstream in(file_name, std::fstream::in);
   if (!in.is_open()) {
     std::cout << "The genome file could not be opened. Check the location.\t";
     return false;
@@ -101,7 +130,7 @@ bool get_words(char *file_name, std::vector<std::string> &w, char type) {
 
   // Get Length of file
   in.seekg(0, in.end);
-  int len = in.tellg();
+  int len = static_cast<int>(in.tellg());
   in.clear(); // Can comment this out if using C++11
   in.seekg(0, in.beg);
 
@@ -156,8 +185,7 @@ same file can be used for either tree.
 *******************************************************************************/
 bool get_reads(char *file_name, std::vector<std::string> &r, char type) {
   int i;
-  std::ifstream in;
-  in.open(file_name);
+  std::fstream in(file_name, std::fstream::in);
   if (!in.is_open()) {
     std::cout << "The read file could not be opened. Check the location.\t";
     return false;
@@ -193,15 +221,26 @@ bool get_reads(char *file_name, std::vector<std::string> &r, char type) {
 bool write_vector_to_file(std::vector<std::string> v, char *file_name) {
   std::ofstream out (file_name, std::ofstream::out);
   for (int i = 0, s = v.size(); i < s; i++)
-    out << v[i].c_str() << std::endl;
+    out << v[i] << std::endl;
   out.clear();
   out.close();
   return true;
 }
 
-bool write_vector_to_screen(std::vector<std::string> v)
-{
+bool write_vector_to_screen(std::vector<std::string> v) {
   for (int i = 0, s = v.size(); i < s; i++)
-    std::cout << v[i].c_str() << std::endl;
+    std::cout << v[i] << std::endl;
   return true;
 }
+
+// Helps with clearing std::cin buffer to prevent infinite loops
+void bufferClear() {
+  std::cin.clear();
+  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+// Prints 20 dashes to standard output
+void printDashes() {
+  std::string lines = "--------------------";
+  std::cout << "\n" << lines << lines << lines << "\n" << std:: endl;
+}
+

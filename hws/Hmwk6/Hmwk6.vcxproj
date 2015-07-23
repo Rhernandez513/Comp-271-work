@@ -47,6 +47,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -75,6 +76,9 @@
     <ClInclude Include="Headers\BTreeNode.h" />
     <ClInclude Include="Headers\QTreeNode.h" />
     <ClInclude Include="Headers\QuarternaryTree.h" />
+    <ClInclude Include="Source\ignore_compiler_warning\force_val_to_bool.h" />
+    <ClInclude Include="Source\ignore_compiler_warning\pop.h" />
+    <ClInclude Include="Source\ignore_compiler_warning\push.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Resources\BReads_Maps_Result.txt" />

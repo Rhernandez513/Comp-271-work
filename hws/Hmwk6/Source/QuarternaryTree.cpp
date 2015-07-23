@@ -1,4 +1,4 @@
-#include "../Headers/QuarternaryTree.h"
+#include "..\\Headers\\QuarternaryTree.h"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -30,7 +30,7 @@ QTreeNode * QuarternaryTree::AppendNode(QTreeNode * parentNode, char val) {
   case ('a'):
     // if the value is not yet in the tree then create new node
     if (parentNode->child1 == nullptr) {
-      parentNode->child1 = QuarternaryTree::CreateNode('a');
+      parentNode->child1 = CreateNode('a');
     }
     // make sure to move down the tree
     parentNode = parentNode->child1;
@@ -38,21 +38,21 @@ QTreeNode * QuarternaryTree::AppendNode(QTreeNode * parentNode, char val) {
   case ('t'):
     // if the value is not yet in the tree then create new node
     if (parentNode->child2 == nullptr) {
-      parentNode->child2 = QuarternaryTree::CreateNode('t');
+      parentNode->child2 = CreateNode('t');
     }
     parentNode = parentNode->child2; // make sure to move down the tree
     return parentNode;
   case ('c'):
     // if the value is not yet in the tree then create new node
     if (parentNode->child3 == nullptr) {
-      parentNode->child3 = QuarternaryTree::CreateNode('c');
+      parentNode->child3 = CreateNode('c');
     }
     parentNode = parentNode->child3; // make sure to move down the tree
     return parentNode;
   case ('g'):
     // if the value is not yet in the tree then create new node
     if (parentNode->child4 == nullptr) {
-      parentNode->child4 = QuarternaryTree::CreateNode('g');
+      parentNode->child4 = CreateNode('g');
     }
     parentNode = parentNode->child4; // make sure to move down the tree
     return parentNode;
@@ -63,7 +63,7 @@ QTreeNode * QuarternaryTree::AppendNode(QTreeNode * parentNode, char val) {
 // Inserts each string in vector<string> w into the QuarternaryTree
 bool QuarternaryTree::insert_vector(std::vector<std::string> &w) {
   std::string temp;
-  for (auto i = 0; i < w.size(); i++) {
+  for (int i = 0, sSize = w.size(); i < sSize; i++) {
     temp = w[i]; // string to work with
     // this will be the pointer that navigates through the tree
     QTreeNode *currentNode = Root;
@@ -85,6 +85,8 @@ bool QuarternaryTree::insert_vector(std::vector<std::string> &w) {
 // If it matches any of the Tree's mappings
 // Returns True if match found, false otherwise
 bool QuarternaryTree::CheckCharsInStr(std::string inStr) {
+#include "ignore_compiler_warning\\push.h"
+#include "ignore_compiler_warning\\force_val_to_bool.h" // MSC C4800
   bool flag = true;
   QTreeNode *currentNode = this->Root;
   for (int n = 0; n < 10; n++) {
@@ -108,6 +110,7 @@ bool QuarternaryTree::CheckCharsInStr(std::string inStr) {
     } // End Switch
     if (!flag) break; // out of for loop
   }
+#include "ignore_compiler_warning\\pop.h"
   return flag;
 }
 
@@ -117,7 +120,8 @@ bool QuarternaryTree::CheckCharsInStr(std::string inStr) {
 bool QuarternaryTree::compare_vector_to_tree(std::vector<std::string> &v) {
   bool flag;
   std::string temp;
-  char *file1 = "../Results/QReads_Map_Results.txt";
+  char *file1 =
+  "C:\\Users\\rhern_000\\Documents\\GitHub\\Comp-271-work\\hws\\Hmwk6\\Results\\QReads_Map_Results.txt";
   std::ofstream out(file1, std::ofstream::out);
   if(!out.is_open()) {
     std::cout << "Error Opening file to write." << std::endl;
@@ -129,7 +133,7 @@ bool QuarternaryTree::compare_vector_to_tree(std::vector<std::string> &v) {
   for (int i = 0, s = v.size(); i < s; i++) {
     temp = v[i]; // using string for comparison
     // will help keep track of what's in the tree and what's not
-    flag = QuarternaryTree::CheckCharsInStr(temp);
+    flag = CheckCharsInStr(temp);
     stringCount++; // incrementing the amount of strings counted for comparison
     if (flag) {
       truthCount++;
@@ -148,3 +152,4 @@ bool QuarternaryTree::compare_vector_to_tree(std::vector<std::string> &v) {
   out.close();
   return true;
 }
+

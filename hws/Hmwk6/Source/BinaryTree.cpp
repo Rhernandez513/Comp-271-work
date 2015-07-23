@@ -1,4 +1,4 @@
-#include "../Headers/BinaryTree.h"
+#include "..\\Headers\\BinaryTree.h"
 #include <iostream>
 #include <fstream>
 
@@ -73,13 +73,13 @@ bool BinaryTree::insert_vector(std::vector<std::string> &w) {
 // For possible matches within the BinaryTree
 // Returns True if Operation is succesful
 bool BinaryTree::compare_vector_to_tree(std::vector<std::string> &v) {
-  char *file1 = "../Results/BReads_map_results.txt";
+  char *file1 =
+  "C:\\Users\\rhern_000\\Documents\\GitHub\\Comp-271-work\\hws\\Hmwk6\\Results\\BReads_map_results.txt";
   std::ofstream out (file1, std::ofstream::out);
   if(!out.is_open()) {
     std::cout << "Error Opening file to write." << std::endl;
     return false;
   }
-
   // will keep track of how many strings we've gone through to print to file
   int stringCount = 0; 
   // will keep track of how many strings match from reads.txt to my tree
@@ -106,6 +106,7 @@ bool BinaryTree::compare_vector_to_tree(std::vector<std::string> &v) {
   out << "Total that are mapped: " << truthCount << std::endl;
   out.clear();
   out.close();
+
   return true;
 }
 
@@ -113,6 +114,8 @@ bool BinaryTree::compare_vector_to_tree(std::vector<std::string> &v) {
 // 'r' or 'y' members that match the a path in the BinaryTree
 // Returns True if found, false otherwise
 bool BinaryTree::CheckCharsInStr(std::string temp) {
+#include "ignore_compiler_warning\\push.h"
+#include "ignore_compiler_warning\\force_val_to_bool.h" // MSC C4800
   bool flag = true;
   BTreeNode *currentNode = this->Root; // using the Root from this binary tree
   for (int n = 0; n < 10; n++) {       // only ten letters in each string
@@ -128,6 +131,7 @@ bool BinaryTree::CheckCharsInStr(std::string temp) {
     } // End Switch
     if (!flag) break; // Out of For loop
   }
+#include "ignore_compiler_warning\\pop.h"
   return flag;
 }
 
