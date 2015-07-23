@@ -21,13 +21,13 @@ QTreeNode * QuarternaryTree::CreateNode(const char val) {
   return new QTreeNode(val);
 }
 
-// Creates and appends a node onto the parentNode into this Quarternary Tree
+// Creates and appends a node onto the parentNode into this Quaternary Tree
 // If val IN ('a', 't', 'c', 'g') Returns the newly created node
 // Else Returns nullptr
 QTreeNode * QuarternaryTree::AppendNode(QTreeNode * parentNode, char val) {
   if (!parentNode) throw "ParentNode was null!";
   switch (val) {
-  case ('a'):
+  case ('a'): // Adenine
     // if the value is not yet in the tree then create new node
     if (parentNode->child1 == nullptr) {
       parentNode->child1 = CreateNode('a');
@@ -35,21 +35,21 @@ QTreeNode * QuarternaryTree::AppendNode(QTreeNode * parentNode, char val) {
     // make sure to move down the tree
     parentNode = parentNode->child1;
     return parentNode;
-  case ('t'):
+  case ('t'): // Thymine
     // if the value is not yet in the tree then create new node
     if (parentNode->child2 == nullptr) {
       parentNode->child2 = CreateNode('t');
     }
     parentNode = parentNode->child2; // make sure to move down the tree
     return parentNode;
-  case ('c'):
+  case ('c'): // Cytosine
     // if the value is not yet in the tree then create new node
     if (parentNode->child3 == nullptr) {
       parentNode->child3 = CreateNode('c');
     }
     parentNode = parentNode->child3; // make sure to move down the tree
     return parentNode;
-  case ('g'):
+  case ('g'): // Guanine
     // if the value is not yet in the tree then create new node
     if (parentNode->child4 == nullptr) {
       parentNode->child4 = CreateNode('g');
@@ -85,7 +85,7 @@ bool QuarternaryTree::insert_vector(std::vector<std::string> &w) {
 // If it matches any of the Tree's mappings
 // Returns True if match found, false otherwise
 bool QuarternaryTree::CheckCharsInStr(std::string inStr) {
-#include "ignore_compiler_warning\\push.h"
+#include "ignore_compiler_warning\\push.h" //start ignoring here
 #include "ignore_compiler_warning\\force_val_to_bool.h" // MSC C4800
   bool flag = true;
   QTreeNode *currentNode = this->Root;
@@ -93,43 +93,43 @@ bool QuarternaryTree::CheckCharsInStr(std::string inStr) {
     switch (inStr[n]) {
     case ('a'): // Adenine
       (currentNode->child1 && currentNode->child1->Data == inStr[n])
-        ? currentNode = currentNode->child1 : flag = false;
+        ? (currentNode = currentNode->child1) != 0 : flag = false;
     break;
     case ('t'): // Thymine
       (currentNode->child2 && currentNode->child2->Data == inStr[n])
-        ? currentNode = currentNode->child2 : flag = false;
+        ? (currentNode = currentNode->child2) != 0 : (flag = false);
     break;
     case ('c'): // Cytosine
       (currentNode->child3 && currentNode->child3->Data == inStr[n])
-        ? currentNode = currentNode->child3 : flag = false;
+        ? (currentNode = currentNode->child3) != 0 : (flag = false);
     break;
     case ('g'): // Guanine
       (currentNode->child4 && currentNode->child4->Data == inStr[n])
-        ? currentNode = currentNode->child4 : flag = false;
+        ? (currentNode = currentNode->child4) != 0 : (flag = false);
       break;
     } // End Switch
     if (!flag) break; // out of for loop
   }
-#include "ignore_compiler_warning\\pop.h"
+#include "ignore_compiler_warning\\pop.h" // Stop ignoring here
   return flag;
 }
 
 // Compares all strings in the vector<string> w
 // For possible matches within the BinaryTree
-// Returns True if Operation is succesful
+// Returns True if Operation is successful
 bool QuarternaryTree::compare_vector_to_tree(std::vector<std::string> &v) {
-  bool flag;
   std::string temp;
-  char *file1 =
-  "C:\\Users\\rhern_000\\Documents\\GitHub\\Comp-271-work\\hws\\Hmwk6\\Results\\QReads_Map_Results.txt";
+  bool flag = false;
+  int stringCount = 0;
+  int truthCount = 0; // will keep track of how many strings match
+  
+  // Output File
+  const char * file1 = "Results\\QReads_Map_Results.txt";
   std::ofstream out(file1, std::ofstream::out);
   if(!out.is_open()) {
     std::cout << "Error Opening file to write." << std::endl;
     return false;
   }
-  int stringCount = 0;
-  int truthCount = 0;
-  // will keep track of how many strings match from reads.txt to my tree
   for (int i = 0, s = v.size(); i < s; i++) {
     temp = v[i]; // using string for comparison
     // will help keep track of what's in the tree and what's not
@@ -152,4 +152,3 @@ bool QuarternaryTree::compare_vector_to_tree(std::vector<std::string> &v) {
   out.close();
   return true;
 }
-

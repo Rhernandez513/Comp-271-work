@@ -5,7 +5,7 @@
 #include <string>
 
 namespace hw6 {
-class QuarternaryTree // created a class for the quarternary tree
+class QuarternaryTree // created a class for the quaternary tree
 {
 public:
   QuarternaryTree();

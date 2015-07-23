@@ -58,16 +58,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Resources\BReads_map_results.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="Resources\BReads_Maps_Result.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="Resources\genome_file.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="Resources\QReads_map_results.txt">
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="Resources\test_file.txt">

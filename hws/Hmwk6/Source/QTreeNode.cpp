@@ -11,9 +11,12 @@ QTreeNode::QTreeNode()
 }
  
 QTreeNode::QTreeNode(const char val)
- : QTreeNode()
+ : child1(nullptr)
+ , child2(nullptr)
+ , child3(nullptr)
+ , child4(nullptr)
+ , Data(val)
 {
-  this->Data = val;
 }
 
 // Deletes this node and All Children Recursively
