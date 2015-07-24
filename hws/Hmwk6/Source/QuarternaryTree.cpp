@@ -25,7 +25,7 @@ QTreeNode * QuarternaryTree::CreateNode(const char val) {
 // If val IN ('a', 't', 'c', 'g') Returns the newly created node
 // Else Returns nullptr
 QTreeNode * QuarternaryTree::AppendNode(QTreeNode * parentNode, char val) {
-  if (!parentNode) throw "ParentNode was null!";
+  if (!parentNode) return nullptr;
   switch (val) {
   case ('a'): // Adenine
     // if the value is not yet in the tree then create new node
@@ -56,8 +56,9 @@ QTreeNode * QuarternaryTree::AppendNode(QTreeNode * parentNode, char val) {
     }
     parentNode = parentNode->child4; // make sure to move down the tree
     return parentNode;
+  default:
+    return nullptr;
   }
-  return nullptr;
 }
 
 // Inserts each string in vector<string> w into the QuarternaryTree

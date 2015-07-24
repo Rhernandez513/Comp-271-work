@@ -11,11 +11,11 @@ QTreeNode::QTreeNode()
 }
  
 QTreeNode::QTreeNode(const char val)
- : child1(nullptr)
+ : Data(val)
+ , child1(nullptr)
  , child2(nullptr)
  , child3(nullptr)
  , child4(nullptr)
- , Data(val)
 {
 }
 

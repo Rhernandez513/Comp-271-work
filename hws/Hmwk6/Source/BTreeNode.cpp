@@ -9,9 +9,9 @@ BTreeNode::BTreeNode()
 }
 
 BTreeNode::BTreeNode(const char val)
- : Lchild(nullptr)
+ : Data(val)
+ , Lchild(nullptr)
  , Rchild(nullptr)
- , Data(val)
 {
 }
 

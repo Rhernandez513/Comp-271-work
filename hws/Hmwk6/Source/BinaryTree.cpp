@@ -25,7 +25,7 @@ BTreeNode * BinaryTree::CreateNode(const char val) {
 // into this Binary Tree If val == 'r' || val == 'y'
 // Returns the newly created node
 BTreeNode * BinaryTree::AppendNode(BTreeNode * parentNode, char val) {
-  if(!parentNode) throw "ParentNode was null!!";
+  if(!parentNode) return nullptr;
   switch (val) {
   case ('y'):
     // if the value is not yet in the tree then create new node
@@ -34,7 +34,7 @@ BTreeNode * BinaryTree::AppendNode(BTreeNode * parentNode, char val) {
     }
     // make sure to move down the tree
     parentNode = parentNode->Lchild;
-  return parentNode;
+    return parentNode;
   case ('r'):
     // if the value is not yet in the tree then create new node
     if (parentNode->Rchild == nullptr) {
@@ -42,9 +42,10 @@ BTreeNode * BinaryTree::AppendNode(BTreeNode * parentNode, char val) {
     }
     // making sure to move down the tree
     parentNode = parentNode->Rchild;
-  return parentNode;
-  }
+    return parentNode;
+  default:
   return nullptr;
+  }
 }
 
 // Inserts Each string in vector<string> w into this Binary Tree
