@@ -106,7 +106,7 @@ bool get_words(const char *file_name, std::vector<std::string> &w, char type) {
     if (type == 'B' || type == 'b') // if doing BTree, translates 4 letter code
                                     // into two letter code
     {
-      if (word[i] == 'a' || word[i] == 'g')
+      if (word[i] == 'a' || word[i] == 'g' || word [i] == 'r')
         word[i] = 'r'; // purine
       else
         word[i] = 'y'; // pyrimidine
