@@ -8,25 +8,17 @@ using namespace hw6;
 
 bool get_words(const char * file_name, std::vector<std::string> &w, char type);
 bool get_reads(const char * file_name, std::vector<std::string> &r, char type);
-bool write_vector_to_screen(std::vector<std::string> v);
-bool write_vector_to_file(std::vector<std::string> v, const char *file_name );
 void printDashes();
 void bufferClear();
 
 int main() {
-  std::vector<std::string> words;
-  std::vector<std::string> wordsQT;
-  std::vector<std::string> reads;
-  std::vector<std::string> readsQT;
+  std::vector<std::string> words, wordsQT, reads, readsQT;
   const std::string lines = "--------------------";
   const std::string writeSuccessMsg = "File Write Operation Successful.";
   const std::string mappingMsg = "Beginning Mapping. Press Any Key to Continue...";
-  const char * words_raw_file_name = "Results\\raw_words.txt";
-  const char * QT_words_raw_file_name = "Results\\QT_raw_words.txt";
   const char * genome_file_name = "Resources\\genome_file.txt";
-  const char * reads_file_name = words_raw_file_name;
-  const char * QT_reads_file_name = QT_words_raw_file_name;
-  bool writeSuccess;
+  const char * reads_file_name = "Resources\\test_file.txt";
+  const char * QT_reads_file_name = "Resources\\test_fileQT.txt";
 
   if (!get_words(genome_file_name, words, 'B')) return 1;
   if (!get_words(genome_file_name, wordsQT, 'Q')) return 1;
@@ -37,26 +29,6 @@ int main() {
   BGenomeTree->insert_vector(words);
   QuarternaryTree * QGenomeTree = new QuarternaryTree();
   QGenomeTree->insert_vector(wordsQT);
-
-  //std::cout << "Press Enter to display words, converted from genome file."
-  //          << std::endl;
-  //bufferClear();
-  //write_vector_to_screen(words);
-
-  //std::cout << "Press Enter to write words to file." << std::endl;
-  //bufferClear();
-  writeSuccess = write_vector_to_file(words, words_raw_file_name);
-  if (writeSuccess) std::cout << writeSuccessMsg << std::endl;
-
-  //std::cout << "Press Enter to display QT words, converted from genome file."
-  //          << std::endl;
-  //bufferClear();
-  //write_vector_to_screen(wordsQT);
-
-  //std::cout << "Press Enter to write QT words to file." << std::endl;
-  //bufferClear();
-  writeSuccess = write_vector_to_file(wordsQT, QT_words_raw_file_name);
-  if (writeSuccess) std::cout << writeSuccessMsg << std::endl;
 
   // 2. Read in file BReads or QReads using function
   // get_reads(read_file_name,reads);
@@ -70,12 +42,11 @@ int main() {
   // listing each read and "Yes" or "No" if it does or doesn't map to the
   // genome.
 
+  printDashes();
+  std::cout << lines << "BINARY TREE MAPPING-----" << lines << std::endl;
+  printDashes();
   std::cout << mappingMsg << std::endl;
   bufferClear();
-
-  printDashes(); 
-  std::cout << lines << "BINARY TREE MAPPING-----" << lines << std::endl;
-  printDashes(); 
 
   BGenomeTree->compare_vector_to_tree(reads);
   delete BGenomeTree;
@@ -200,7 +171,7 @@ bool get_reads(const char *file_name, std::vector<std::string> &r, char type) {
     // into two letter code
     if (type == 'B' || type == 'b') {
       for (i = 0; i < 10; i++) {
-        if (word[i] == 'a' || word[i] == 'g')
+        if (word[i] == 'a' || word[i] == 'g' || word[i] == 'r')
           word[i] = 'r'; // purine
         else
           word[i] = 'y'; // pyrimidine
