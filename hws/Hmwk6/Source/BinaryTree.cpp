@@ -92,10 +92,10 @@ bool BinaryTree::compare_vector_to_tree(std::vector<std::string> &v) {
     stringCount++;
     if (found) {
       truthCount++;
-      std::cout << "String (" << temp << ") is mapped." << std::endl;
+      //std::cout << "String (" << temp << ") is mapped." << std::endl;
       out << "String (" << temp << ") is mapped." << std::endl;
     } else {
-      std::cout << "String (" << temp << ") is not mapped." << std::endl;
+      //std::cout << "String (" << temp << ") is not mapped." << std::endl;
       out << "String (" << temp << ") is not mapped." << std::endl;
     }
   } // End For
@@ -103,9 +103,9 @@ bool BinaryTree::compare_vector_to_tree(std::vector<std::string> &v) {
   // Report on what read vs was mapped to the tree
   const char * readMsg = "\nTotal that have been read: ";
   const char * mapMsg = "\nTotal that are mapped: ";
-  std::cout << readMsg << stringCount << std::endl;
+  //std::cout << readMsg << stringCount << std::endl;
   out << readMsg << stringCount << std::endl;
-  std::cout << mapMsg << truthCount << std::endl;
+  //std::cout << mapMsg << truthCount << std::endl;
   out << mapMsg << truthCount << std::endl;
   out.clear();
   out.close();

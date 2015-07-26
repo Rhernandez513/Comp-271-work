@@ -138,10 +138,10 @@ bool QuarternaryTree::compare_vector_to_tree(std::vector<std::string> &v) {
     stringCount++; // incrementing the amount of strings counted for comparison
     if (flag) {
       truthCount++;
-      std::cout << "String (" << temp << ") is Mapped." << std::endl;
+      //std::cout << "String (" << temp << ") is Mapped." << std::endl;
       out << "String (" << temp << ") is Mapped." << std::endl;
     } else {
-      std::cout << "String (" << temp << ") is not Mapped." << std::endl;
+      //std::cout << "String (" << temp << ") is not Mapped." << std::endl;
       out << "String (" << temp << ") is not Mapped." << std::endl;
     }
   }
@@ -149,9 +149,9 @@ bool QuarternaryTree::compare_vector_to_tree(std::vector<std::string> &v) {
   // Report on what read vs was mapped to the tree
   const char * readMsg = "\nTotal QTree that reads: ";
   const char * mapMsg = "\nTotal QTree reads mapped: ";
-  std::cout << readMsg << stringCount << std::endl;
+  //std::cout << readMsg << stringCount << std::endl;
   out << readMsg << stringCount << std::endl;
-  std::cout << mapMsg << truthCount << std::endl;
+  //std::cout << mapMsg << truthCount << std::endl;
   out << mapMsg << truthCount << std::endl;
   out.clear();
   out.close();
