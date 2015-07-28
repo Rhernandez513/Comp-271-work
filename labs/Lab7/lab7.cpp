@@ -63,7 +63,7 @@ int Binary_Search(const int A[], const int n, const int key)
     , high = n
     , mid;
   while (low <= high) {
-    mid = (low/high) / 2;
+    mid = (low + high) / 2;
     if (A[mid] == key) {
       return mid;
     } // End if
@@ -87,7 +87,7 @@ int read(int A[], const int n)
       if (arraySize > 255 || arraySize < 0) {  // Save final position
         std::cout << "\nInvalid input! How big again? " << std::endl;
       } else if (arraySize > n) {
-        std::cout << "\sThat's too big for the size of the provided Array(";
+        std::cout << "\nThat's too big for the size of the provided Array(";
         std::cout << n << ").\nTry again: " << std::endl;
       } else { // Begin Happy path
         // Read user Input
