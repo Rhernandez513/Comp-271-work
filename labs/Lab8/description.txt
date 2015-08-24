@@ -1,0 +1,18 @@
+We’re going to read in a file of 10000 integers. These integers can be
+positive or negative and can range from some very negative number to a very
+positive number, i.e. you don’t know the range. You want to put them into
+an array. Create six hash functions:
+
+int division_method(int val, int M)
+int multiplication_method(int val, int M)
+int extraction_method(int val, int add_size)
+int mid-square_method(int val, int add_size)
+int folding_method(int val, int add_size)
+int rotation_method(int val)
+
+Parameters: • val: the value of the integer read in
+• M: the size of the array
+• add_size: the size of the address (i.e., number of digits)
+
+Extra Credit 1 pt
+- Create *two** function to handle collisions
