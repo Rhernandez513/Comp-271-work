@@ -25,7 +25,7 @@ BTreeNode * BinaryTree::CreateNode(const char val) {
 // into this Binary Tree If val == 'r' || val == 'y'
 // Returns the newly created node
 BTreeNode * BinaryTree::AppendNode(BTreeNode * parentNode, char val) {
-  if(!parentNode) throw "parentNode was null!!";
+  if(!parentNode) return nullptr;
   switch (val) {
   case ('y'):
     // if the value is not yet in the tree then create new node
@@ -34,7 +34,7 @@ BTreeNode * BinaryTree::AppendNode(BTreeNode * parentNode, char val) {
     }
     // make sure to move down the tree
     parentNode = parentNode->Lchild;
-  return parentNode;
+    return parentNode;
   case ('r'):
     // if the value is not yet in the tree then create new node
     if (parentNode->Rchild == nullptr) {
@@ -42,9 +42,10 @@ BTreeNode * BinaryTree::AppendNode(BTreeNode * parentNode, char val) {
     }
     // making sure to move down the tree
     parentNode = parentNode->Rchild;
-  return parentNode;
-  }
+    return parentNode;
+  default:
   return nullptr;
+  }
 }
 
 // Inserts Each string in vector<string> w into this Binary Tree
@@ -71,39 +72,41 @@ bool BinaryTree::insert_vector(std::vector<std::string> &w) {
 
 // Compares all strings in the vector<string> w
 // For possible matches within the BinaryTree
-// Returns True if Operation is succesful
+// Returns True if Operation is successful
 bool BinaryTree::compare_vector_to_tree(std::vector<std::string> &v) {
-  char *file1 =
-  "C:\\Users\\rhern_000\\Documents\\GitHub\\Comp-271-work\\hws\\Hmwk6\\Results\\BReads_map_results.txt";
+  std::string temp;
+  int stringCount = 0; // how many strings we've gone through to print to file
+  int truthCount = 0;  // will keep track of how many strings match
+  const char * file1 = "Results\\BReads_map_results.txt";
   std::ofstream out (file1, std::ofstream::out);
   if(!out.is_open()) {
     std::cout << "Error Opening file to write." << std::endl;
     return false;
   }
-  // will keep track of how many strings we've gone through to print to file
-  int stringCount = 0; 
-  // will keep track of how many strings match from reads.txt to my tree
-  int truthCount = 0;
 
   bool found = false;
   for (int i = 0, s = v.size(); i < s; i++) {
-    std::string temp = v[i]; // using string for comparison
+    temp = v[i]; // using string for comparison
     // will help keep track of what's in the tree and what's not
-    found = BinaryTree::CheckCharsInStr(temp);
+    found = CheckCharsInStr(temp);
     stringCount++;
     if (found) {
       truthCount++;
-      std::cout << std::endl;
-      std::cout << "String " << temp.c_str() << ": is mapped." << std::endl;
+      //std::cout << "String (" << temp << ") is mapped." << std::endl;
+      out << "String (" << temp << ") is mapped." << std::endl;
     } else {
-      std::cout << "String " << temp.c_str() << ": is not mapped." << std::endl;
+      //std::cout << "String (" << temp << ") is not mapped." << std::endl;
+      out << "String (" << temp << ") is not mapped." << std::endl;
     }
   } // End For
 
-  std::cout << "Total that have been read: " << stringCount << std::endl;
-  out << "Total that have been read: " << stringCount << std::endl;
-  std::cout << "Total that are mapped: " << truthCount << std::endl;
-  out << "Total that are mapped: " << truthCount << std::endl;
+  // Report on what read vs was mapped to the tree
+  const char * readMsg = "\nTotal that have been read: ";
+  const char * mapMsg = "\nTotal that are mapped: ";
+  //std::cout << readMsg << stringCount << std::endl;
+  out << readMsg << stringCount << std::endl;
+  //std::cout << mapMsg << truthCount << std::endl;
+  out << mapMsg << truthCount << std::endl;
   out.clear();
   out.close();
 
@@ -122,11 +125,11 @@ bool BinaryTree::CheckCharsInStr(std::string temp) {
     switch (temp[n]) {
     case ('r'):
     (currentNode->Rchild && currentNode->Rchild->GetData() == temp[n])
-      ? currentNode = currentNode->Rchild : flag = false;
+      ? (currentNode = currentNode->Rchild) != 0 : (flag = false);
       break;
     case ('y'):
     (currentNode->Lchild && currentNode->Lchild->GetData() == temp[n])
-      ? currentNode = currentNode->Lchild : flag = false;
+      ? (currentNode = currentNode->Lchild) != 0 : (flag = false);
       break;
     } // End Switch
     if (!flag) break; // Out of For loop

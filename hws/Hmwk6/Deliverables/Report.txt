@@ -1,0 +1,55 @@
+Comp 271 Data Structures using C++
+Professor Maria Saenz
+Summer 2015
+Homework Assignment 6: Peer Programming Homework
+Contributors: Robert David Hernandez, Syed Ali
+
+Functionality for this program includes both two (r, y) and four (a, t, c, g)
+character alphabets.
+
+The IDE Syed Ali used to develop his code was CodeBlocks.
+
+The IDE Robert Hernandez used to develop his code was Visual Studio 2013.
+
+  The included program has the ability to parse a "genome file" consisting of
+a single unbroken line to 2^32 chars (~2 billion) and compare the genome
+against potential pattern matches (currently up to 10 chars per pattern).
+
+  Both (r,y) and (a,t,c,g) patterns can be used to compare against an (a,t,c,g)
+genome file.
+
+  The program will then display to the standard output all patterns that were
+parsed as well as denote any potential matches.
+
+Output is also written to the Results directory (if it exists).
+
+
+Files included in this packages are as follows:
+  Headers:
+  (Definition files for how the data structures behave)
+    BinaryTree.h
+    BTreeNode.h
+    QuaternaryTree.h
+    QTreeNode.h
+  Source Code:
+  (implementation code for data structures used to effeciently store
+   and parse the data, as well as the main program)
+    BinaryTree.cpp
+    BTreeNode.cpp
+    QuaternaryTree.cpp
+    QTreeNode.cpp
+    main.cpp
+      ignore_compiler_warning:
+      (used to suppress warnings in Microsoft's implementation of C++ 11)
+        force_val_to_bool.h
+        pop.h
+        push.h
+  Resources:
+  (consist of a genome file and the same genome file tokened
+   such that it can be parsed against)
+    genome_file.txt
+    test_file.txt
+    test_fileQT.txt
+  Screenshots:
+    (Pics or it didn't happen)
+

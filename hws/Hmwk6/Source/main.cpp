@@ -2,57 +2,26 @@
 #include "..\\Headers\\QuarternaryTree.h"
 #include <iostream>
 #include <fstream>
-#include <vector>
 
 
 using namespace hw6;
 
-bool get_words(char *file_name, std::vector<std::string> &w, char type);
-bool get_reads(char *file_name, std::vector<std::string> &r, char type);
-bool write_vector_to_screen(std::vector<std::string> v);
-bool write_vector_to_file(std::vector<std::string> v, char *file_name);
+bool get_words(const char * file_name, std::vector<std::string> &w, char type);
+bool get_reads(const char * file_name, std::vector<std::string> &r, char type);
 void printDashes();
 void bufferClear();
 
 int main() {
-  std::vector<std::string> words;
-  std::vector<std::string> wordsQT;
-  std::vector<std::string> reads;
-  std::vector<std::string> readsQT;
-  std::string lines = "--------------------";
-  std::string writeSuccessMsg = "File Write Operation Succesfull.";
-  std::string mappingMsg = "Begining Mapping. Press Any Key to Continue...\n";
-  char * reads_file_name = "C:\\Users\\rhern_000\\Documents\\GitHub\\Comp-271-work\\hws\\Hmwk6\\Resources\\test_file.txt";
-  char * QT_reads_file_name = "C:\\Users\\rhern_000\\Documents\\GitHub\\Comp-271-work\\hws\\Hmwk6\\Resources\\test_fileQT.txt";
-  char * genome_file_name = "C:\\Users\\rhern_000\\Documents\\GitHub\\Comp-271-work\\hws\\Hmwk6\\Resources\\genome_file.txt";
-  char * words_raw_file_name = "C:\\Users\\rhern_000\\Documents\\GitHub\\Comp-271-work\\\hws\\Hmwk6\\Results\\raw_words.txt";
-  char * QT_words_raw_file_name = "C:\\Users\\rhern_000\\Documents\\GitHub\\Comp-271-work\\hws\\Hmwk6\\Results\\QT_raw_words.txt";
-  bool writeSuccess;
+  std::vector<std::string> words, wordsQT, reads, readsQT;
+  const std::string lines = "--------------------";
+  const std::string writeSuccessMsg = "File Write Operation Successful.";
+  const std::string mappingMsg = "Beginning Mapping. Press Any Key to Continue...";
+  const char * genome_file_name = "Resources\\genome_file.txt";
+  const char * reads_file_name = "Resources\\test_file.txt";
+  const char * QT_reads_file_name = "Resources\\test_fileQT.txt";
 
   if (!get_words(genome_file_name, words, 'B')) return 1;
   if (!get_words(genome_file_name, wordsQT, 'Q')) return 1;
-
-  std::cout << "Press any key to display Raw words." << std::endl;
-  std::cin.get();
-  bufferClear();
-  write_vector_to_screen(words);
-
-  std::cout << "Press any key to write Raw words to file." << std::endl;
-  std::cin.get();
-  bufferClear();
-  writeSuccess = write_vector_to_file(words, words_raw_file_name);
-  if (writeSuccess) std::cout << writeSuccessMsg << std::endl;
-
-  std::cout << "Press any key to display Raw QT words." << std::endl;
-  std::cin.get();
-  bufferClear();
-  write_vector_to_screen(wordsQT);
-
-  std::cout << "Press any key to write Raw QT words to file." << std::endl;
-  std::cin.get();
-  bufferClear();
-  writeSuccess = write_vector_to_file(wordsQT, QT_words_raw_file_name);
-  if (writeSuccess) std::cout << writeSuccessMsg << std::endl;
 
   // 1. Create a tree based on either BTreeNode or QTreeNode
   // --> transforming the vector of words into the tree
@@ -73,23 +42,20 @@ int main() {
   // listing each read and "Yes" or "No" if it does or doesn't map to the
   // genome.
 
+  printDashes();
+  std::cout << lines << "BINARY TREE MAPPING-----" << lines << std::endl;
+  printDashes();
   std::cout << mappingMsg << std::endl;
-  std::cin.get();
   bufferClear();
-
-  printDashes(); 
-  std::cout << lines << "BINARY TREE MAPPING" << lines << std::endl;
-  printDashes(); 
 
   BGenomeTree->compare_vector_to_tree(reads);
   delete BGenomeTree;
   
   printDashes(); 
-  std::cout << "\n" << lines << "BINARY TREE ENDED" << lines << std::endl;
+  std::cout << "\n" << lines << "BINARY TREE ENDED-----" << lines << std::endl;
   printDashes(); 
 
   std::cout << mappingMsg << std::endl;
-  std::cin.get();
   bufferClear();
 
   printDashes(); 
@@ -103,8 +69,7 @@ int main() {
   std::cout << lines << "QUATERNARY TREE ENDED. QUIT" << lines << std::endl;
   printDashes(); 
 
-  std::cout << "\nGoodbye!\n" << std::endl;
-  std::cin.get();
+  std::cout << "\nGoodbye!\n";
   bufferClear();
 
   return 0;
@@ -116,10 +81,10 @@ words of size 10 that are present in the file and stores each word in a vector.
 The vector is passed to this function as a parameter -- by reference such
 that the calling function has access to the vector of words.
 Type='B' means you are doing a binary tree. Type='Q' means you are doing
-the quartenary tree. This function will translate the file such that the
+the quaternary tree. This function will translate the file such that the
 same file can be used for either tree.
 *******************************************************************************/
-bool get_words(char *file_name, std::vector<std::string> &w, char type) {
+bool get_words(const char *file_name, std::vector<std::string> &w, char type) {
   std::fstream in(file_name, std::fstream::in);
   if (!in.is_open()) {
     std::cout << "The genome file could not be opened. Check the location.\t";
@@ -141,7 +106,7 @@ bool get_words(char *file_name, std::vector<std::string> &w, char type) {
     if (type == 'B' || type == 'b') // if doing BTree, translates 4 letter code
                                     // into two letter code
     {
-      if (word[i] == 'a' || word[i] == 'g')
+      if (word[i] == 'a' || word[i] == 'g' || word [i] == 'r')
         word[i] = 'r'; // purine
       else
         word[i] = 'y'; // pyrimidine
@@ -164,7 +129,9 @@ bool get_words(char *file_name, std::vector<std::string> &w, char type) {
     }
     word[10] = '\0';
     // strcpy(w[i], word);
-    std::cout << i << "\t" << word << std::endl;
+
+    // Redundant w/ write_vector_to_screen
+    //std::cout << i << "\t" << word << std::endl;
     //std::cout.flush(); // No Need with endl ^
     w.push_back(word);
   }
@@ -180,10 +147,10 @@ in the file and stores each word in a vector.
 The vector is passed to this function as a parameter -- by reference such
 that the calling function has access to the vector of words.
 Type='B' means you are doing a binary tree. Type='Q' means you are doing
-the quartenary tree. This function will translate the file such that the
+the quaternary tree. This function will translate the file such that the
 same file can be used for either tree.
 *******************************************************************************/
-bool get_reads(char *file_name, std::vector<std::string> &r, char type) {
+bool get_reads(const char *file_name, std::vector<std::string> &r, char type) {
   int i;
   std::fstream in(file_name, std::fstream::in);
   if (!in.is_open()) {
@@ -204,7 +171,7 @@ bool get_reads(char *file_name, std::vector<std::string> &r, char type) {
     // into two letter code
     if (type == 'B' || type == 'b') {
       for (i = 0; i < 10; i++) {
-        if (word[i] == 'a' || word[i] == 'g')
+        if (word[i] == 'a' || word[i] == 'g' || word[i] == 'r')
           word[i] = 'r'; // purine
         else
           word[i] = 'y'; // pyrimidine
@@ -218,10 +185,10 @@ bool get_reads(char *file_name, std::vector<std::string> &r, char type) {
   return true;
 }
 
-bool write_vector_to_file(std::vector<std::string> v, char *file_name) {
+bool write_vector_to_file(std::vector<std::string> v, const char *file_name) {
   std::ofstream out (file_name, std::ofstream::out);
   for (int i = 0, s = v.size(); i < s; i++)
-    out << v[i] << std::endl;
+    out << i + 1 << '\t' << v[i] << std::endl;
   out.clear();
   out.close();
   return true;
@@ -229,18 +196,18 @@ bool write_vector_to_file(std::vector<std::string> v, char *file_name) {
 
 bool write_vector_to_screen(std::vector<std::string> v) {
   for (int i = 0, s = v.size(); i < s; i++)
-    std::cout << v[i] << std::endl;
+    std::cout << i + 1 << '\t' << v[i] << std::endl;
   return true;
 }
 
 // Helps with clearing std::cin buffer to prevent infinite loops
+// Can also work like std::cin.get() to accept a Return key press
 void bufferClear() {
   std::cin.clear();
   std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 // Prints 20 dashes to standard output
 void printDashes() {
-  std::string lines = "--------------------";
-  std::cout << "\n" << lines << lines << lines << "\n" << std:: endl;
+  const char * dashes = "--------------------";
+  std::cout << "\n" << dashes << dashes << dashes << "\n" << std:: endl;
 }
-
